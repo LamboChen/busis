@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grad.dao.IUserDao">
+
+    <resultMap id="BaseResultMap" type="com.grad.entity.User">
+        <id column="user_id" property="user_id" jdbcType="INTEGER" javaType="int"/>
+        <result column="username" property="username" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="password" property="password" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR" javaType="java.lang.Character"/>
+        <result column="birthday" property="birthday" jdbcType="DATE" javaType="java.util.Date"/>
+        <result column="head_portrail" property="head_portrail" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="introduce" property="introduce" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="telphone" property="telphone" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="authority" property="authority" jdbcType="VARCHAR" javaType="java.lang.Character"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id,username,password,gender,birthday,head_portrail,introduce,telphone,authority
+    </sql>
+
+    <select id="findUserById" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            tb_user
+        WHERE
+            user_id=#{value}
+    </select>
+
+    <select id="findUserByTelphone" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            tb_user
+        WHERE
+            telphone=#{value}
+    </select>
+
+    <select id="findUserByUsernameAndPassword" parameterType="com.grad.entity.User" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            tb_user
+        WHERE
+            username=#{username} AND password = #{password}
+    </select>
+
+
+
+    <select id="matchByUsernameAndPassword" parameterType="com.grad.entity.User" resultType="int">
+        SELECT
+            count(user_id)
+        FROM
+            tb_user
+        WHERE
+            tb_user.username = #{username} and tb_user.password = #{password}
+    </select>
+
+    <select id="matchByTelphoneAndPassword" parameterType="com.grad.entity.User" resultType="int">
+        SELECT
+            count(user_id)
+        FROM
+            tb_user
+        WHERE
+            tb_user.telphone = #{telphone} and tb_user.password = #{password}
+    </select>
+
+    <insert id="insertUser" parameterType="com.grad.entity.User">
+        <selectKey keyProperty="user_id" order="AFTER" resultType="int">
+            SELECT last_insert_id()
+        </selectKey>
+        INSERT into
+            tb_user(username,password,gender,birthday,head_portrail,introduce,telphone)
+            values(#{username},#{password},#{gender},#{birthday},#{head_portrail},#{introduce},#{telphone})
+    </insert>
+
+    <select id="queryTelphone" parameterType="java.lang.String" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            tb_user
+        WHERE
+            tb_user.telphone = #{value}
+    </select>
+
+
+
+    <update id="modifyPassword" parameterType="com.grad.entity.User">
+        UPDATE
+            tb_user
+        SET
+            password = #{password}
+        WHERE
+            user_id = #{user_id}
+    </update>
+
+    <update id="modifyUsername" parameterType="com.grad.entity.User">
+        UPDATE
+            tb_user
+        SET
+            username = #{username}
+        WHERE
+            user_id = #{user_id}
+    </update>
+
+    <update id="modifyHead_portrail" parameterType="com.grad.entity.User">
+        UPDATE
+            tb_user
+        SET
+            head_portrail = #{head_portrail}
+        WHERE
+            user_id = #{user_id}
+    </update>
+
+    <update id="modifyGender" parameterType="com.grad.entity.User">
+        UPDATE
+            tb_user
+        SET
+            gender = #{gender}
+        WHERE
+            user_id = #{user_id}
+    </update>
+
+    <update id="modifyBirthday" parameterType="com.grad.entity.User">
+        UPDATE
+            tb_user
+        SET
+            birthday = #{birthday}
+        WHERE
+            user_id = #{user_id}
+    </update>
+
+    <update id="modifyIntroduce" parameterType="com.grad.entity.User">
+        UPDATE
+            tb_user
+        SET
+            introduce = #{introduce}
+        WHERE
+            user_id = #{user_id}
+    </update>
+
+    <update id="modifyTelphone" parameterType="com.grad.entity.User">
+        UPDATE
+            tb_user
+        SET
+            telphone = #{telphone}
+        WHERE
+            user_id = #{user_id}
+    </update>
+
+    <update id="modifyAuthority" parameterType="com.grad.entity.User">
+        UPDATE
+            tb_user
+        SET
+            authority = #{authority}
+        WHERE
+            user_id = #{user_id}
+    </update>
+
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grad.dao.ILocationDao">
+
+    <resultMap id="BaseResultMap" type="com.grad.entity.Location">
+        <id column="location_id" property="location_id" jdbcType="INTEGER" javaType="int"/>
+        <result column="location_name" property="location_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="location_longitude" property="location_longitude" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="location_latitude" property="location_latitude" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="location_type" property="location_type" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="area" property="area" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="user_id" property="user_id" jdbcType="INTEGER" javaType="int"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        location_id,location_name,location_longitude,location_latitude,location_type,area,user_id
+    </sql>
+
+    <insert id="insertLocation" parameterType="com.grad.entity.Location">
+        <selectKey keyProperty="location_id" order="AFTER" resultType="int">
+            SELECT last_insert_id()
+        </selectKey>
+        INSERT INTO
+            tb_location(location_name,location_longitude,location_latitude,location_type,area,user_id)
+            values(#{location_name},#{location_longitude},#{location_latitude},#{location_type},#{area},#{user_id})
+    </insert>
+
+    <delete id="deleteLocationByLongitudeAndLatitude" parameterType="com.grad.entity.Location">
+        DELETE FROM
+            tb_location
+        WHERE
+            location_longitude = #{location_longitude} AND location_latitude = #{location_latitude}
+            AND user_id=#{user_id}
+    </delete>
+
+    <select id="findLocationByUser_id" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            tb_location
+        WHERE
+            user_id = #{user_id}
+    </select>
+
+    <select id="totalLocation" parameterType="com.grad.entity.Location" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            tb_location
+        WHERE
+            location_longitude = #{location_longitude} AND location_latitude = #{location_latitude}
+    </select>
+
+    <select id="checkLocationAndUser_id" parameterType="com.grad.entity.Location" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            tb_location
+        WHERE
+            location_longitude = #{location_longitude} AND location_latitude = #{location_latitude}
+            AND user_id=#{user_id}
+    </select>
+</mapper>

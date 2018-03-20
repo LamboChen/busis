@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: new.sf.ezmorph:ezmorph:unknown">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/new/sf/ezmorph/ezmorph/unknown/ezmorph-unknown.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/new/sf/ezmorph/ezmorph/unknown/ezmorph-unknown-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/new/sf/ezmorph/ezmorph/unknown/ezmorph-unknown-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
