@@ -24,7 +24,7 @@
     username：用户姓名
     password：用户密码
     gender：用户性别
-    birthday：用户出生日期
+    birthday：用户出生日期 
     head_portrail：用户头像图片路径
     introduce：用户介绍
     telphone：用户电话号码
@@ -168,7 +168,7 @@
 
 4、示例
 
-    http://120.77.170.124:8080/busis/user/register.do?username=Alice&password=123456&gender=girl&birthday=1999-1-1
+    http://120.77.170.124:8080/busis/user/register.do?username=Alice&password=123456&gender=0&birthday=1999-1-1
         &introduce=good&telphone=13008142300
 
 ##### 三、修改用户基本信息（姓名、密码、性别、出生日期、介绍、电话号码）

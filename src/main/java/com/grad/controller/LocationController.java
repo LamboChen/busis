@@ -2,6 +2,9 @@ package com.grad.controller;
 
 import com.grad.entity.Location;
 import com.grad.service.ILocationService;
+import com.grad.util.ApiFormatUtil;
+import com.grad.vo.LocationApiVo;
+import com.grad.vo.LocationListApiVo;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @program: busis
@@ -41,13 +43,18 @@ public class LocationController {
     @ResponseBody
     public String addLocation(Location location) throws Exception{
         int result = -1;
+        LocationApiVo locationApiVo = new LocationApiVo();
 
-        result = locationService.addLocation(location);
+        locationApiVo = locationService.addLocation(location);
+
+        if (locationApiVo.getLocation() != null){
+            result = locationApiVo.getLocation().getLocation_id();
+        }
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result",result);
 
-        return jsonObject.toString();
+        return ApiFormatUtil.apiFormat(locationApiVo.getCode(),locationApiVo.getMessage(),jsonObject);
     }
 
 
@@ -65,8 +72,9 @@ public class LocationController {
      */
     @RequestMapping(value = "/delete",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public void deleteLocation(Location location) throws Exception{
-        locationService.deleteLocation(location);
+    public String deleteLocation(Location location) throws Exception{
+        LocationApiVo locationApiVo = locationService.deleteLocation(location);
+        return ApiFormatUtil.apiFormat(locationApiVo.getCode(),locationApiVo.getMessage(),locationApiVo.getLocation());
     }
 
 
@@ -86,11 +94,12 @@ public class LocationController {
     @RequestMapping(value = "/query",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/json;charset=UTF-8")
     @ResponseBody
     public String findLocationByUser_id(int user_id) throws Exception{
-        List<Location> locationList = locationService.findLocationByUser_id(user_id);
 
-        JSONArray result = JSONArray.fromObject(locationList);
+        LocationListApiVo locationList = locationService.findLocationByUser_id(user_id);
 
-        return String.valueOf(result);
+        JSONArray result = JSONArray.fromObject(locationList.getLocationList());
+
+        return ApiFormatUtil.apiFormat(locationList.getCode(),locationList.getMessage(),result);
     }
 
 
@@ -117,7 +126,8 @@ public class LocationController {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result",result);
-        return jsonObject.toString();
+
+        return ApiFormatUtil.apiFormat(1,"查询成功！",jsonObject);
     }
 
 

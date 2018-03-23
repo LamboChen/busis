@@ -2,6 +2,9 @@ package com.grad.controller;
 
 import com.grad.entity.Collection;
 import com.grad.service.ICollectionService;
+import com.grad.util.ApiFormatUtil;
+import com.grad.vo.CollectionApiVo;
+import com.grad.vo.CollectionListApiVo;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @program: busis
@@ -45,14 +47,15 @@ public class CollectionController {
     @RequestMapping(value = "/add",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/json;charset=UTF-8")
     @ResponseBody
     public String addCollection(Collection collection) throws Exception{
-        int result = -1;
 
-        result = collectionService.addCollection(collection);
+        CollectionApiVo collectionApiVo = collectionService.addCollection(collection);
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",result);
+        if (collectionApiVo.getCollection() != null){
+            jsonObject.put("result",collectionApiVo.getCollection().getCollection_id());
+        }
 
-        return jsonObject.toString();
+        return ApiFormatUtil.apiFormat(collectionApiVo.getCode(),collectionApiVo.getMessage(),jsonObject);
     }
 
 
@@ -72,8 +75,9 @@ public class CollectionController {
      */
     @RequestMapping(value = "/delete",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public void deleteCollection(Collection collection) throws Exception{
-        collectionService.deleteCollection(collection);
+    public String deleteCollection(Collection collection) throws Exception{
+        CollectionApiVo collectionApiVo = collectionService.deleteCollection(collection);
+        return ApiFormatUtil.apiFormat(collectionApiVo.getCode(),collectionApiVo.getMessage(),collectionApiVo.getCollection());
     }
 
 
@@ -98,11 +102,11 @@ public class CollectionController {
     public String findCollectionByUser_id(int user_id) throws Exception{
         //解决JSON中文乱码
 
-        List<Collection> collectionList = collectionService.findCollectionByUser_id(user_id);
+        CollectionListApiVo collectionListApiVo = collectionService.findCollectionByUser_id(user_id);
 
-        JSONArray result = JSONArray.fromObject(collectionList);
+        JSONArray result = JSONArray.fromObject(collectionListApiVo.getCollectionList());
 
-        return String.valueOf(result);
+        return ApiFormatUtil.apiFormat(collectionListApiVo.getCode(),collectionListApiVo.getMessage(),result);
     }
 
 
@@ -129,7 +133,8 @@ public class CollectionController {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result",result);
-        return jsonObject.toString();
+
+        return ApiFormatUtil.apiFormat(1,"查询成功",jsonObject);
     }
 
 

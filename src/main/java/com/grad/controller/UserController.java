@@ -4,12 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.grad.entity.User;
 import com.grad.service.IUserService;
-import com.grad.util.GetDateByStringUtils;
-import com.grad.util.TelphoneCheckUtil;
-import com.grad.util.UploadHead_portrailUtil;
+import com.grad.util.*;
 import com.grad.vo.ModifyUserVo;
+import com.grad.vo.UserApiVo;
 import com.grad.vo.UserBaseInformationVo;
-import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +31,7 @@ public class UserController {
 
     @Resource
     private IUserService userService;
+
 
     //无参构造
     public UserController(){
@@ -60,21 +59,28 @@ public class UserController {
             produces = "text/json;charset=UTF-8")
     @ResponseBody
     public String loginByAccountAndPassword(@RequestParam String account,@RequestParam String password) throws Exception{
-
         User resultUser = new User();
+        UserApiVo userApiVo = new UserApiVo();
 
-        int loginResult = userService.loginByAccountAndPassword(account,password);
+        userApiVo.setMessage("说明：");
 
-        if(loginResult == 1){
+        UserApiVo loginResult = userService.loginByAccountAndPassword(account,password);
+        loginResult.setMessage(userApiVo.getMessage() + loginResult.getMessage());
+
+        if(loginResult.getCode() == 1){
             //表示利用电话号码和密码进行成功登录
-            resultUser = userService.getUserByTelphone(account);
-        } else if (loginResult == 2){
+            resultUser = userService.getUserByTelphone(account).getUser();
+        } else if (loginResult.getCode() == 2){
             //表示通过用户名和密码进行成功登录
-            resultUser = userService.getUserByUsernameAndPassword(account,password);
+            resultUser = userService.getUserByUsernameAndPassword(account,password).getUser();
+            loginResult.setCode(1);
         } else {
             //登录失败
             resultUser.setUser_id(-1);
+            loginResult.setCode(0);
         }
+
+        resultUser = SimpleUtil.hideSensitiveInformation(resultUser);
 
         GsonBuilder gsonBuilder = new GsonBuilder();
 //        gsonBuilder.setPrettyPrinting();        //格式化（仅用于开发阶段）
@@ -82,7 +88,8 @@ public class UserController {
         Gson gson = gsonBuilder.create();
 
         String resultJson = gson.toJson(resultUser);
-        return resultJson;
+
+        return ApiFormatUtil.apiFormat(loginResult.getCode(),loginResult.getMessage(),resultJson);
     }
 
 
@@ -115,21 +122,28 @@ public class UserController {
         User resultUser = new User();
         boolean check = true;
         int resultId = -1;
+        UserApiVo userApiVo = new UserApiVo();
+
+        //初始化结果说明
+        userApiVo.setMessage("说明：");
 
         //必填项检查
         if (userBaseInformationVo.getUsername() == "" || userBaseInformationVo.getUsername() == null){
             check = false;
+            userApiVo.setMessage(userApiVo.getMessage() + "用户名不能为空！");
         }
         if(userBaseInformationVo.getTelphone() == "" || userBaseInformationVo.getTelphone() == null){
             check = false;
+            userApiVo.setMessage(userApiVo.getMessage() + "电话号码不能为空！");
         }
         if (userBaseInformationVo.getPassword() == "" || userBaseInformationVo.getPassword() == null){
             check = false;
+            userApiVo.setMessage(userApiVo.getMessage() + "密码不能为空！");
         }
 
         if (check == false){
             //缺少必填项
-
+            userApiVo.setCode(0);
         } else {
             //填充数据，并检验数据合法性
             //检验username长度
@@ -138,12 +152,14 @@ public class UserController {
             } else {
                 //username数据长度不合法
                 check = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "用户名不能超过10个字符！");
             }
             //验证手机号码是否合法
             if (TelphoneCheckUtil.isPhoneLegal(userBaseInformationVo.getTelphone())){
                 tempUser.setTelphone(userBaseInformationVo.getTelphone());
             } else {
                 check = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "电话号码不正确！");
             }
             //检验密码长度是否合法
             if (userBaseInformationVo.getPassword().length() < 20){
@@ -151,12 +167,13 @@ public class UserController {
             } else {
                 //数据不合法
                 check = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "密码长度不能超过20个字符！");
             }
 
             //判断必填项是否合法结果
             if (check == false){
                 //数据非法
-
+                userApiVo.setCode(0);
 
             } else {
                 //必填项合法，填充其他信息
@@ -171,6 +188,9 @@ public class UserController {
                     } else {
                         tempUser.setGender('0');
                     }
+                } else {
+                    //用户注册时未填写性别
+                    tempUser.setGender(' ');
                 }
                 if (userBaseInformationVo.getIntroduce() != "" && userBaseInformationVo.getIntroduce() != null){
                     tempUser.setIntroduce(userBaseInformationVo.getIntroduce());
@@ -180,33 +200,51 @@ public class UserController {
 
         if (check == false){
             //存在不合法数据
+            userApiVo.setCode(0);
+
             resultId = -1;      //标识注册失败
             resultUser.setUser_id(resultId);
             resultUser.setUsername(userBaseInformationVo.getUsername());
             resultUser.setIntroduce(userBaseInformationVo.getIntroduce());
 //            resultUser.setGender((char) user.getGender().indexOf(1));
-            if (userBaseInformationVo.getGender().equals("1")){
-                tempUser.setGender('1');
-            } else {
-                tempUser.setGender('0');
+            if (userBaseInformationVo.getGender() != null){
+                if (userBaseInformationVo.getGender().equals("1")){
+                    tempUser.setGender('1');
+                } else {
+                    tempUser.setGender('0');
+                }
             }
-            resultUser.setBirthday(GetDateByStringUtils.getDate(userBaseInformationVo.getBirthday()));
+            if (userBaseInformationVo.getBirthday() != null){
+                resultUser.setBirthday(GetDateByStringUtils.getDate(userBaseInformationVo.getBirthday()));
+            }
             resultUser.setPassword(userBaseInformationVo.getPassword());
             resultUser.setTelphone(userBaseInformationVo.getTelphone());
         } else {
             //进行注册操作
-            resultId = userService.registerUser(tempUser);
-            //重新从数据库中查询数据
-            resultUser = userService.getUserById(resultId);
+            userApiVo = userService.registerUser(tempUser);
+            if (userApiVo.getCode() == 0){
+                //注册失败
+
+            } else {
+                //注册成功
+                //重新从数据库中查询数据
+                resultUser = userService.getUserById(userApiVo.getUser().getUser_id()).getUser();
+                userApiVo.setMessage("注册成功！");
+            }
+
+
         }
 
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.setPrettyPrinting();        //格式化（仅用于开发阶段）
+//        gsonBuilder.setPrettyPrinting();        //格式化（仅用于开发阶段）
         gsonBuilder.setDateFormat("yyyy-MM-dd");
         Gson gson = gsonBuilder.create();
 
+        resultUser = SimpleUtil.hideSensitiveInformation(resultUser);
+
         String resultJson = gson.toJson(resultUser);
-        return resultJson;
+
+        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
     }
 
 
@@ -229,6 +267,9 @@ public class UserController {
     public String modifyUserBaseInformation(ModifyUserVo modifyUserVo) throws Exception{
         User user = new User();
         boolean result = false;
+        UserApiVo userApiVo = new UserApiVo();
+
+        userApiVo.setMessage("说明：");
 
         user.setUser_id(modifyUserVo.getUser_id());
         user.setUsername(modifyUserVo.getUsername());
@@ -242,11 +283,9 @@ public class UserController {
         user.setIntroduce(modifyUserVo.getIntroduce());
         user.setTelphone(modifyUserVo.getTelphone());
 
-        result = userService.updateUserInformation(user);
+        userApiVo = userService.updateUserInformation(user);
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",result);
-        return jsonObject.toString();
+        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),userApiVo.getUser());
     }
 
 
@@ -261,12 +300,16 @@ public class UserController {
             produces = "text/json;charset=UTF-8")
     @ResponseBody
     public String modifyHead_portrail(@RequestParam(value = "head_portrail",required = false)MultipartFile head_portrail,
-                                      HttpServletRequest request,int user_id) throws Exception {
+                                      HttpServletRequest request, int user_id) throws Exception {
 
         //未进行测试
 
         User user = new User();
         boolean result = false;
+        UserApiVo userApiVo = new UserApiVo();
+
+        userApiVo.setMessage("说明：");
+        userApiVo.setUser(null);
 
         //将图片存储在服务器文件夹中，并返回文件路径
         String head_portrailResult = UploadHead_portrailUtil.uploadHead_portrail(head_portrail,request);
@@ -276,11 +319,9 @@ public class UserController {
         user.setHead_portrail(head_portrailResult);
 
         //进行数据库更新
-        result = userService.updateUserInformation(user);
+        userApiVo = userService.updateUserInformation(user);
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",result);
-        return jsonObject.toString();
+        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),userApiVo.getUser());
     }
 
 
@@ -298,16 +339,13 @@ public class UserController {
 
         User user = new User();
         boolean result = false;
+        UserApiVo userApiVo = new UserApiVo();
 
         user.setUser_id(user_id);
 
-        result = userService.updateUserAuthority(user,modifyUser_id,modifyAuthority);
+        userApiVo = userService.updateUserAuthority(user,modifyUser_id,modifyAuthority);
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",result);
-        return jsonObject.toString();
+        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),userApiVo.getUser());
     }
-
-
 
 }

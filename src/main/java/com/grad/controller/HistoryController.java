@@ -2,17 +2,18 @@ package com.grad.controller;
 
 import com.grad.entity.History;
 import com.grad.service.IHistoryService;
+import com.grad.util.ApiFormatUtil;
 import com.grad.util.GetDateByStringUtils;
+import com.grad.vo.HistoryApiVo;
+import com.grad.vo.HistoryListApiVo;
 import com.grad.vo.HistoryVo;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @program: busis
@@ -49,6 +50,10 @@ public class HistoryController {
         History history = new History();
         int result = 1;
 
+        HistoryApiVo historyApiVo = new HistoryApiVo();
+        historyApiVo.setCode(0);
+        historyApiVo.setMessage("");
+
         //将数据转换填充到history中
         if (historyVo.getStart_point() != null && historyVo.getStart_point() != ""){
             history.setStart_point(historyVo.getStart_point());
@@ -60,12 +65,15 @@ public class HistoryController {
         if (historyVo.getStart_longitude() == null || historyVo.getStart_longitude() == ""){
             //参数为空
             result = 0;
+            historyApiVo.setCode(0);
+            historyApiVo.setMessage(historyApiVo.getMessage() + "起点经度不能为空！");
         } else {
             history.setStart_longitude(historyVo.getStart_longitude());
         }
         //终点经度不能为空
         if (historyVo.getEnd_longitude() == null || historyVo.getEnd_longitude() == ""){
             //参数为空
+            historyApiVo.setMessage(historyApiVo.getMessage() + "终点经度不能为空！");
             result = 0;
         } else {
             history.setEnd_longitude(historyVo.getEnd_longitude());
@@ -74,6 +82,7 @@ public class HistoryController {
         if (historyVo.getStart_latitude() == null || historyVo.getStart_latitude() == ""){
             //参数为空
             result = 0;
+            historyApiVo.setMessage(historyApiVo.getMessage() + "起点纬度不能为空！");
         } else {
             history.setStart_latitude(historyVo.getStart_latitude());
         }
@@ -81,6 +90,7 @@ public class HistoryController {
         if (historyVo.getEnd_latitude() == null || historyVo.getEnd_latitude() == ""){
             //参数为空
             result = 0;
+            historyApiVo.setMessage(historyApiVo.getMessage() + "终点纬度不能为空！");
         } else {
             history.setEnd_latitude(historyVo.getEnd_latitude());
         }
@@ -96,6 +106,7 @@ public class HistoryController {
         if (historyVo.getUser_id() <= 0){
             //没有user_id
             result = 0;
+            historyApiVo.setMessage(historyApiVo.getMessage() + "用户ID不能为空！");
         } else {
             history.setUser_id(historyVo.getUser_id());
         }
@@ -104,22 +115,21 @@ public class HistoryController {
                 || historyVo.getRoute_information().length() > 200){
             //数据非法
             result = 0;
+            historyApiVo.setMessage(historyApiVo.getMessage() + "路线信息不能超过200字符！");
         } else {
             history.setRoute_information(historyVo.getRoute_information());
         }
 
         if (result == 0){
             //存在非法数据
-
+            historyApiVo.setCode(0);
+            historyApiVo.setMessage("存在不合法数据：" + historyApiVo.getMessage());
         } else {
             //所有数据均合法，可以进行添加操作
-            result = historyService.insertHistory(history);
+            historyApiVo = historyService.insertHistory(history);
         }
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("result",result);
-
-        return jsonObject.toString();
+        return ApiFormatUtil.apiFormat(historyApiVo.getCode(),historyApiVo.getMessage(),historyApiVo.getHistory());
     }
 
 
@@ -133,11 +143,11 @@ public class HistoryController {
     @ResponseBody
     public String getHistory(int user_id) throws Exception{
 
-        List<History> historyList = historyService.getHistoryByUser_id(user_id);
+        HistoryListApiVo historyListApiVo = historyService.getHistoryByUser_id(user_id);
 
-        JSONArray result = JSONArray.fromObject(historyList);
+        JSONArray result = JSONArray.fromObject(historyListApiVo.getHistoryList());
 
-        return String.valueOf(result);
+        return ApiFormatUtil.apiFormat(historyListApiVo.getCode(),historyListApiVo.getMessage(),result);
     }
 
 
