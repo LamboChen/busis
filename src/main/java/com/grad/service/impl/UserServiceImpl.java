@@ -170,10 +170,13 @@ public class UserServiceImpl implements IUserService {
             result = false;
             userApiVo.setMessage(userApiVo.getMessage() + "用户名不合法！");
         }
-        if(!TelphoneCheckUtil.isPhoneLegal(user.getTelphone())){
-            result = false;
-            userApiVo.setMessage(userApiVo.getMessage() + "电话号码不合法！");
+        if(user.getTelphone() != null && user.getTelphone() != ""){
+            if(!TelphoneCheckUtil.isPhoneLegal(user.getTelphone())){
+                result = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "电话号码不合法！");
+            }
         }
+
         if (user.getHead_portrail() != "" && user.getHead_portrail() != null && user.getHead_portrail().length() > 100){
             result = false;
             userApiVo.setMessage(userApiVo.getMessage() + "头像信息不合法！");
@@ -240,7 +243,7 @@ public class UserServiceImpl implements IUserService {
                         userDao.modifyHead_portrail(tempUser);
                     }
                     //修改用户性别
-                    if (tempUser.getGender() != '0' && tempUser.getGender() != '1'){
+                    if (tempUser.getGender() == '0' || tempUser.getGender() == '1'){
                         userDao.modifyGender(tempUser);
                     }
                     //修改密码

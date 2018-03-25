@@ -279,7 +279,9 @@ public class UserController {
         } else {
             user.setGender('0');
         }
-        user.setBirthday(GetDateByStringUtils.getDate(modifyUserVo.getBirthday()));
+        if (modifyUserVo.getBirthday() != null){
+            user.setBirthday(GetDateByStringUtils.getDate(modifyUserVo.getBirthday()));
+        }
         user.setIntroduce(modifyUserVo.getIntroduce());
         user.setTelphone(modifyUserVo.getTelphone());
 
