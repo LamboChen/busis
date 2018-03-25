@@ -28,12 +28,11 @@
             values(#{location_name},#{location_longitude},#{location_latitude},#{location_type},#{area},#{user_id})
     </insert>
 
-    <delete id="deleteLocationByLongitudeAndLatitude" parameterType="com.grad.entity.Location">
+    <delete id="deleteLocationByLongitudeAndLatitude" parameterType="int">
         DELETE FROM
             tb_location
         WHERE
-            location_longitude = #{location_longitude} AND location_latitude = #{location_latitude}
-            AND user_id=#{user_id}
+            location_id=#{value}
     </delete>
 
     <select id="findLocationByUser_id" parameterType="int" resultMap="BaseResultMap">

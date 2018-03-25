@@ -93,11 +93,10 @@ public class LocationServiceImpl implements ILocationService {
         return locationApiVo;
     }
 
-    public LocationApiVo deleteLocation(Location location) throws Exception {
-        locationDao.deleteLocationByLongitudeAndLatitude(location);
+    public LocationApiVo deleteLocation(int location_id) throws Exception {
+        locationDao.deleteLocationByLongitudeAndLatitude(location_id);
         locationApiVo.setCode(1);
         locationApiVo.setMessage("删除成功！");
-        locationApiVo.setLocation(location);
         return locationApiVo;
     }
 

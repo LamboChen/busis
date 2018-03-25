@@ -28,12 +28,12 @@ public interface ICollectionService {
 
     /**
      * 用户删除收藏路线
-     * @param collection    路线基本信息，用户ID
+     * @param collection_id    收藏路线ID
      * @return code 结果
      *          message 结果说明
      * @throws Exception
      */
-    public CollectionApiVo deleteCollection(Collection collection) throws Exception;
+    public CollectionApiVo deleteCollection(int collection_id) throws Exception;
 
 
     /**

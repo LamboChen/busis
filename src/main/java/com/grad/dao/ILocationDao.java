@@ -23,10 +23,10 @@ public interface ILocationDao {
 
     /**
      * 通过位置经纬度和用户ID进行地点的删除
-     * @param location
+     * @param location_id 收藏地点ID
      * @throws Exception
      */
-    public void deleteLocationByLongitudeAndLatitude(Location location) throws Exception;
+    public void deleteLocationByLongitudeAndLatitude(int location_id) throws Exception;
 
 
     /**

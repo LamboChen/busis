@@ -24,10 +24,10 @@ public interface ICollectionDao {
 
     /**
      * 通过位置经纬度和用户ID进行收藏路线的删除
-     * @param collection 路线基本信息
+     * @param collection_id 路线ID
      * @throws Exception
      */
-    public void deleteCollectionByLongitudeAndLatitudeAndUser_id(Collection collection) throws Exception;
+    public void deleteCollectionByCollection_id(int collection_id) throws Exception;
 
 
     /**

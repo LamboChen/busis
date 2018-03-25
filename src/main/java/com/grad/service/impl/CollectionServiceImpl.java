@@ -118,8 +118,8 @@ public class CollectionServiceImpl implements ICollectionService {
         return collectionApiVo;
     }
 
-    public CollectionApiVo deleteCollection(Collection collection) throws Exception {
-        collectionDao.deleteCollectionByLongitudeAndLatitudeAndUser_id(collection);
+    public CollectionApiVo deleteCollection(int collection_id) throws Exception {
+        collectionDao.deleteCollectionByCollection_id(collection_id);
         collectionApiVo.setCode(1);
         collectionApiVo.setMessage("删除收藏路线成功");
         return collectionApiVo;

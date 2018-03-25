@@ -30,6 +30,7 @@
 
 
 
+## 接口详细说明
 
 #### 用户相关API
 
@@ -191,7 +192,7 @@
     end_latitude(string) : 终点纬度（必填）
     history_time(string) : 路线时间（yyyy-MM-dd HH:mm:ss）
     area(string) : 所在区域
-    route_information(varchar(200)) : 路线信息 （必填）
+    route_information(string) : 路线信息 （必填）
     user_id(int) : 用户ID（必填）
 
 3、返回（JSON字符串）
@@ -269,12 +270,7 @@
 
 2、参数说明
 
-    location_name(string): 位置名称
-    location_longitude (string): 经度(必填)
-    location_latitude (string): 纬度(必填)
-    location_type (string): 位置类型
-    area (string): 区域
-    user_id(int):user ID(必填)
+    location_id(int):收藏位置ID
 
 3、返回（JSON字符串）
 
@@ -282,8 +278,7 @@
     
 4、示例
 
-    http://120.77.170.124:8080/busis/location/delete.do?location_name=xhu&location_longitude=1.1&location_latitude=2.2
-        &location_type=xhu&area=成都&user_id=1
+    http://120.77.170.124:8080/busis/location/delete.do?location_id=1
 
 
 ##### 十、查询用户收藏地点
@@ -354,7 +349,7 @@
     end_longitude(string) : 终点经度（必填）
     end_latitude(string) : 终点纬度（必填）
     area(string) : 所在区域
-    route_information(varchar(200)) : 路线信息 （必填）
+    route_information(string) : 路线信息 （必填）
     user_id(int) : 用户ID（必填）
 
 3、返回（JSON字符串）
@@ -375,15 +370,7 @@
 
 2、参数说明
 
-    start_point(string): 路线起点名称
-    end_point(string) : 路线终点名称
-    start_longitude(string) : 起点经度（必填）
-    start_latitude(string) : 起点经度（必填）
-    end_longitude(string) : 终点经度（必填）
-    end_latitude(string) : 终点纬度（必填）
-    area(string) : 所在区域
-    route_information(string) : 路线信息 （必填）
-    user_id(int) : 用户ID（必填）
+    collection_id(int):收藏路线ID
 
 3、返回（JSON字符串）
 
@@ -391,8 +378,7 @@
     
 4、示例
 
-    http://120.77.170.124:8080/busis/collection/delete.do?start_point=西华大学&end_point=天府广场&start_longitude=1.1
-        &start_latitude=2.2&end_longitude=3.3&end_latitude=4.4&area=四川成都&route_information=route-information test&user_id=1
+    http://120.77.170.124:8080/busis/collection/delete.do?collection_id=1
 
 
 ##### 十四、通过用户ID查询用户收藏路线

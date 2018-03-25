@@ -58,7 +58,7 @@ public class CollectionDaoTest {
         collection.setRoute_information("route-information");
         collection.setUser_id(1);
 
-        collectionDao.deleteCollectionByLongitudeAndLatitudeAndUser_id(collection);
+        collectionDao.deleteCollectionByCollection_id(collection.getCollection_id());
     }
 
     @Test

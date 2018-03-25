@@ -27,13 +27,13 @@ public interface ILocationService {
 
     /**
      * 用户删除位置信息
-     * @param location  位置基本信息
+     * @param location_id  位置ID
      * @return  code 结果码
      *          message 结果描述
      *          location 位置信息
      * @throws Exception
      */
-    public LocationApiVo deleteLocation(Location location) throws Exception;
+    public LocationApiVo deleteLocation(int location_id) throws Exception;
 
 
     /**

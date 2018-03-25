@@ -60,21 +60,14 @@ public class LocationController {
 
     /**
      * 删除收藏位置
-     * @param location  待删除位置信息
-     *          location_id (int,PK): 位置ID
-     *          location_name (varchar(20)): 位置名称
-     *          location_longitude (varchar(15)): 经度(必填)
-     *          location_latitude (varchar(15)): 纬度(必填)
-     *          location_type (varchar(15)): 位置类型
-     *          area (varchar(20)): 区域
-     *          user_id(int):user ID(必填)
+     * @param location_id  待删除位置ID
      * @throws Exception
      */
     @RequestMapping(value = "/delete",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public String deleteLocation(Location location) throws Exception{
-        LocationApiVo locationApiVo = locationService.deleteLocation(location);
-        return ApiFormatUtil.apiFormat(locationApiVo.getCode(),locationApiVo.getMessage(),locationApiVo.getLocation());
+    public String deleteLocation(int location_id) throws Exception{
+        LocationApiVo locationApiVo = locationService.deleteLocation(location_id);
+        return ApiFormatUtil.apiFormat(locationApiVo.getCode(),locationApiVo.getMessage()," ");
     }
 
 

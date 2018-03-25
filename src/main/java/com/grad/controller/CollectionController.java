@@ -61,22 +61,13 @@ public class CollectionController {
 
     /**
      * 用户删除收藏路线
-     * @param collection
-     *         start_point:起点名称
-     *         end_point:终点名称
-     *         start_longitude:起点经度(必填）
-     *         start_latitude:起点纬度(必填）
-     *         end_longitude:终点经度(必填）
-     *         end_latitude:终点纬度(必填）
-     *         area:区域
-     *         user_id; 用户ID(必填）
-     *         route_information:路线信息
+     * @param collection_id 收藏路线ID
      * @throws Exception
      */
     @RequestMapping(value = "/delete",method = {RequestMethod.POST,RequestMethod.GET},produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public String deleteCollection(Collection collection) throws Exception{
-        CollectionApiVo collectionApiVo = collectionService.deleteCollection(collection);
+    public String deleteCollection(int collection_id) throws Exception{
+        CollectionApiVo collectionApiVo = collectionService.deleteCollection(collection_id);
         return ApiFormatUtil.apiFormat(collectionApiVo.getCode(),collectionApiVo.getMessage(),collectionApiVo.getCollection());
     }
 
