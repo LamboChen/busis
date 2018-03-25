@@ -64,33 +64,33 @@ public class HistoryController {
         //起点经度不能为空
         if (historyVo.getStart_longitude() == null || historyVo.getStart_longitude() == ""){
             //参数为空
-            result = 0;
-            historyApiVo.setCode(0);
-            historyApiVo.setMessage(historyApiVo.getMessage() + "起点经度不能为空！");
+//            result = 0;
+//            historyApiVo.setCode(0);
+//            historyApiVo.setMessage(historyApiVo.getMessage() + "起点经度不能为空！");
         } else {
             history.setStart_longitude(historyVo.getStart_longitude());
         }
         //终点经度不能为空
         if (historyVo.getEnd_longitude() == null || historyVo.getEnd_longitude() == ""){
-            //参数为空
-            historyApiVo.setMessage(historyApiVo.getMessage() + "终点经度不能为空！");
-            result = 0;
+//            //参数为空
+//            historyApiVo.setMessage(historyApiVo.getMessage() + "终点经度不能为空！");
+//            result = 0;
         } else {
             history.setEnd_longitude(historyVo.getEnd_longitude());
         }
         //起点纬度不能为空
         if (historyVo.getStart_latitude() == null || historyVo.getStart_latitude() == ""){
             //参数为空
-            result = 0;
-            historyApiVo.setMessage(historyApiVo.getMessage() + "起点纬度不能为空！");
+//            result = 0;
+//            historyApiVo.setMessage(historyApiVo.getMessage() + "起点纬度不能为空！");
         } else {
             history.setStart_latitude(historyVo.getStart_latitude());
         }
         //终点纬度不能为空
         if (historyVo.getEnd_latitude() == null || historyVo.getEnd_latitude() == ""){
             //参数为空
-            result = 0;
-            historyApiVo.setMessage(historyApiVo.getMessage() + "终点纬度不能为空！");
+//            result = 0;
+//            historyApiVo.setMessage(historyApiVo.getMessage() + "终点纬度不能为空！");
         } else {
             history.setEnd_latitude(historyVo.getEnd_latitude());
         }
@@ -115,7 +115,7 @@ public class HistoryController {
                 || historyVo.getRoute_information().length() > 200){
             //数据非法
             result = 0;
-            historyApiVo.setMessage(historyApiVo.getMessage() + "路线信息不能超过200字符！");
+            historyApiVo.setMessage(historyApiVo.getMessage() + "路线信息不能为空或路线信息不能超过200字符！");
         } else {
             history.setRoute_information(historyVo.getRoute_information());
         }

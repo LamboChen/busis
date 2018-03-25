@@ -5,7 +5,6 @@ import com.grad.entity.Location;
 import com.grad.service.ILocationService;
 import com.grad.vo.LocationApiVo;
 import com.grad.vo.LocationListApiVo;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -43,15 +42,15 @@ public class LocationServiceImpl implements ILocationService {
             result = -1;
             locationApiVo.setMessage(locationApiVo.getMessage() + "地点名称不能超过20个字符！");
         }
-        if (location.getLocation_longitude() == null || location.getLocation_longitude() == ""
-                || location.getLocation_longitude().length() > 15){
+        if (location.getLocation_longitude() != null && location.getLocation_longitude() != ""
+                && location.getLocation_longitude().length() > 15){
             locationApiVo.setMessage(locationApiVo.getMessage() + "地点经度不能超过15个字符！");
             result = -1;
         }
-        if (location.getLocation_latitude() == null || location.getLocation_latitude() == ""
-                || location.getLocation_latitude().length() >15){
+        if (location.getLocation_latitude() != null && location.getLocation_latitude() != ""
+                && location.getLocation_latitude().length() > 30){
             result = -1;
-            locationApiVo.setMessage(locationApiVo.getMessage() + "地点纬度不能超过15个字符！");
+            locationApiVo.setMessage(locationApiVo.getMessage() + "地点纬度不能超过30个字符！");
         }
         if (location.getLocation_type() != "" && location.getLocation_type() != null
                 && location.getLocation_type().length() > 15){

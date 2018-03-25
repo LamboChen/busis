@@ -52,23 +52,23 @@ public class CollectionServiceImpl implements ICollectionService {
             result = -1;
         }
         //起点和终点经纬度不能为空，且长度应少于15
-        if (collection.getStart_longitude() == "" || collection.getStart_longitude() == null
-                || collection.getStart_longitude().length() > 15){
+        if (collection.getStart_longitude() != "" && collection.getStart_longitude() != null
+                && collection.getStart_longitude().length() > 15){
             result = -1;
             collectionApiVo.setMessage(collectionApiVo.getMessage() + "起点经度不能超过15个字符！");
         }
-        if (collection.getStart_latitude() == "" || collection.getStart_latitude() == null
-                || collection.getStart_latitude().length() > 15){
+        if (collection.getStart_latitude() != "" && collection.getStart_latitude() != null
+                && collection.getStart_latitude().length() > 15){
             result = -1;
             collectionApiVo.setMessage(collectionApiVo.getMessage() + "起点纬度不能超过15个字符！");
         }
-        if (collection.getEnd_longitude() == "" || collection.getEnd_longitude() == null
-                || collection.getEnd_longitude().length() > 15){
+        if (collection.getEnd_longitude() != "" && collection.getEnd_longitude() != null
+                && collection.getEnd_longitude().length() > 15){
             result = -1;
             collectionApiVo.setMessage(collectionApiVo.getMessage() + "终点经度不能超过15个字符！");
         }
-        if (collection.getEnd_latitude() == "" || collection.getEnd_latitude() == null
-                || collection.getEnd_latitude().length() > 15){
+        if (collection.getEnd_latitude() != "" && collection.getEnd_latitude() != null
+                && collection.getEnd_latitude().length() > 15){
             result = -1;
             collectionApiVo.setMessage(collectionApiVo.getMessage() + "终点纬度不能超过15个字符！");
         }
@@ -85,7 +85,7 @@ public class CollectionServiceImpl implements ICollectionService {
         if (collection.getRoute_information() == "" || collection.getRoute_information() == null
                 || collection.getRoute_information().length() > 1500){
             result = -1;
-            collectionApiVo.setMessage(collectionApiVo.getMessage() + "路线信息不能超过1500个字符！");
+            collectionApiVo.setMessage(collectionApiVo.getMessage() + "路线信息为空或路线信息超过1500个字符！");
         }
         //用户ID不能为空
         if (collection.getUser_id() <= 0){
@@ -138,20 +138,20 @@ public class CollectionServiceImpl implements ICollectionService {
 
         //数据合法性检查
         //起点和终点经纬度不能为空，且长度应少于15
-        if (collection.getStart_longitude() == "" || collection.getStart_longitude() == null
-                || collection.getStart_longitude().length() > 15){
+        if (collection.getStart_longitude() != "" && collection.getStart_longitude() != null
+                && collection.getStart_longitude().length() > 15){
             result = -1;
         }
-        if (collection.getStart_latitude() == "" || collection.getStart_latitude() == null
-                || collection.getStart_latitude().length() > 15){
+        if (collection.getStart_latitude() != "" && collection.getStart_latitude() != null
+                && collection.getStart_latitude().length() > 15){
             result = -1;
         }
-        if (collection.getEnd_longitude() == "" || collection.getEnd_longitude() == null
-                || collection.getEnd_longitude().length() > 15){
+        if (collection.getEnd_longitude() != "" && collection.getEnd_longitude() != null
+                && collection.getEnd_longitude().length() > 15){
             result = -1;
         }
-        if (collection.getEnd_latitude() == "" || collection.getEnd_latitude() == null
-                || collection.getEnd_latitude().length() > 15){
+        if (collection.getEnd_latitude() != "" && collection.getEnd_latitude() != null
+                && collection.getEnd_latitude().length() > 15){
             result = -1;
         }
 

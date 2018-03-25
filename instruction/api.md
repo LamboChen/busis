@@ -186,10 +186,10 @@
 
     start_point(string): 路线起点名称
     end_point(string) : 路线终点名称
-    start_longitude(string) : 起点经度（必填）
-    start_latitude(string) : 起点经度（必填）
-    end_longitude(string) : 终点经度（必填）
-    end_latitude(string) : 终点纬度（必填）
+    start_longitude(string) : 起点经度
+    start_latitude(string) : 起点经度
+    end_longitude(string) : 终点经度
+    end_latitude(string) : 终点纬度
     history_time(string) : 路线时间（yyyy-MM-dd HH:mm:ss）
     area(string) : 所在区域
     route_information(string) : 路线信息 （必填）
@@ -247,8 +247,8 @@
 2、参数说明
 
     location_name(string): 位置名称
-    location_longitude (string): 经度(必填)
-    location_latitude (string): 纬度(必填)
+    location_longitude (string): 经度(必填）
+    location_latitude (string): 纬度（必填）
     location_type (string): 位置类型
     area (string): 区域
     user_id(int):user ID(必填)
@@ -344,10 +344,10 @@
 
     start_point(string): 路线起点名称
     end_point(string) : 路线终点名称
-    start_longitude(string) : 起点经度（必填）
-    start_latitude(string) : 起点经度（必填）
-    end_longitude(string) : 终点经度（必填）
-    end_latitude(string) : 终点纬度（必填）
+    start_longitude(string) : 起点经度
+    start_latitude(string) : 起点经度
+    end_longitude(string) : 终点经度
+    end_latitude(string) : 终点纬度
     area(string) : 所在区域
     route_information(string) : 路线信息 （必填）
     user_id(int) : 用户ID（必填）
@@ -418,10 +418,10 @@
 
     start_point(string): 路线起点名称
     end_point(string) : 路线终点名称
-    start_longitude(string) : 起点经度（必填）
-    start_latitude(string) : 起点经度（必填）
-    end_longitude(string) : 终点经度（必填）
-    end_latitude(string) : 终点纬度（必填）
+    start_longitude(string) : 起点经度
+    start_latitude(string) : 起点经度
+    end_longitude(string) : 终点经度
+    end_latitude(string) : 终点纬度
     area(string) : 所在区域
     route_information(varchar(200)) : 路线信息 （必填）
 

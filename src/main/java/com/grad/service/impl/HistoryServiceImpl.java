@@ -48,25 +48,25 @@ public class HistoryServiceImpl implements IHistoryService {
             historyApiVo.setMessage(historyApiVo.getMessage() + "终点名称不能超过20个字符！");
         }
         //起点位置经度数据不能为空，长度不能超过15
-        if (history.getStart_longitude() == "" || history.getStart_longitude() == null ||
+        if (history.getStart_longitude() != "" && history.getStart_longitude() != null &&
                 history.getStart_longitude().length() > 15){
             check = false;
             historyApiVo.setMessage(historyApiVo.getMessage() + "起点经度不能超过15个字符！");
         }
         //起点位置纬度数据不能为空，长度不能超过15
-        if (history.getStart_latitude() == "" || history.getStart_latitude() == null ||
+        if (history.getStart_latitude() != "" && history.getStart_latitude() != null &&
                 history.getStart_latitude().length() > 15){
             check = false;
             historyApiVo.setMessage(historyApiVo.getMessage() + "起点纬度不能超过15个字符！");
         }
         //终点位置经度数据不能为空，长度不能超过15
-        if (history.getEnd_longitude() == "" || history.getEnd_longitude() == null ||
+        if (history.getEnd_longitude() != "" && history.getEnd_longitude() != null &&
                 history.getEnd_longitude().length() > 15){
             check = false;
             historyApiVo.setMessage(historyApiVo.getMessage() + "终点经度不能超过15个字符！");
         }
         //终点位置纬度数据不能为空，长度不能超过15
-        if (history.getEnd_latitude() == "" || history.getEnd_latitude() == null ||
+        if (history.getEnd_latitude() != "" && history.getEnd_latitude() != null &&
                 history.getEnd_latitude().length() > 15){
             check = false;
             historyApiVo.setMessage(historyApiVo.getMessage() + "终点纬度不能超过15个字符！");

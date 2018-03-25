@@ -52,8 +52,7 @@
         FROM
             tb_collection
         WHERE
-            start_longitude=#{start_longitude} AND start_latitude=#{start_latitude}
-            AND end_longitude=#{end_longitude} AND end_latitude=#{end_latitude}
+            route_information=#{route_information}
     </select>
 
     <select id="checkCollectionAndUser_id" parameterType="com.grad.entity.Collection" resultType="int">
@@ -62,9 +61,7 @@
         FROM
             tb_collection
         WHERE
-            start_longitude=#{start_longitude} AND start_latitude=#{start_latitude}
-            AND end_longitude=#{end_longitude} AND end_latitude=#{end_latitude}
-            AND route_information=#{route_information}
+            route_information=#{route_information}
             AND user_id=#{user_id}
     </select>
 </mapper>
