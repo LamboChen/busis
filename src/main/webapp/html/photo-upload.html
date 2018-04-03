@@ -6,12 +6,14 @@
     <!--<script src="../js/photo-upload.js"></script>-->
 </head>
 <body>
-<form method="post" action="http://127.0.0.1:8080/busis/photo/upload" enctype="multipart/form-data">
+<form method="post" action="http://120.77.170.124:8080/busis/user/modify/head_portrail.do"
+      enctype="multipart/form-data">
     <div class="row">
+        <span class="personattr">用户ID:</span>
+        <input type="text" name="user_id" id="user_id"/>
+        <br>
         <span class="personattr">照片:</span>
-        <input type="hidden" name="img" id="thumbUrl"/>
-        <input type="file" name="file" id="file" onchange="setImg(this);">
-        <span><img id="thumburlShow" src="" width="120" height="120"/></span>
+        <input type="file" name="image" id="image"/>
         <input type="submit" value="submit" />
     </div>
 </form>

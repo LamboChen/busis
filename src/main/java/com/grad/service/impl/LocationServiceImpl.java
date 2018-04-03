@@ -87,6 +87,7 @@ public class LocationServiceImpl implements ILocationService {
                 result = location.getLocation_id();
                 locationApiVo.setCode(1);
                 locationApiVo.setMessage(locationApiVo.getMessage() + "收藏成功！");
+                locationApiVo.setLocation(location);
             }
         }
         return locationApiVo;

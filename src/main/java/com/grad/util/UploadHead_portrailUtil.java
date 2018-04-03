@@ -22,7 +22,7 @@ public class UploadHead_portrailUtil {
         File targetFile = null;
         String msg = "";        //返回存储路径
         int code = 1;
-        String fileName = file.getOriginalFilename();       //获取文件名后缀
+        String fileName = file.getOriginalFilename();       //获取文件名(带后缀）
         if(fileName != null && fileName != ""){
             String returnUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
                     + request.getContextPath() + "/upload/imgs/";   //存储路径

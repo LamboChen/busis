@@ -129,7 +129,7 @@ public class HistoryController {
             historyApiVo = historyService.insertHistory(history);
         }
 
-        return ApiFormatUtil.apiFormat(historyApiVo.getCode(),historyApiVo.getMessage(),historyApiVo.getHistory());
+        return ApiFormatUtil.apiFormat(historyApiVo.getCode(),historyApiVo.getMessage(),"");
     }
 
 

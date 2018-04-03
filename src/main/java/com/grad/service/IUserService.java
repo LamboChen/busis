@@ -15,6 +15,7 @@ import com.grad.entity.User;
 public interface IUserService {
 
     /**
+     * 用户登录
      * @param account 用户账户（电话号码或用户名）
      * @param password  用户密码
      * @return 登录结果(code  0:登录失败，1;电话号码登录成功，2：用户名登录成功)
@@ -99,6 +100,15 @@ public interface IUserService {
      */
     public UserApiVo updateUserAuthority(User user,int user_id,char newAuthority) throws Exception;
 
+
+    /**
+     * 修改用户头像路径
+     * @param user_id 用户ID
+     * @param head_portrail 用户头像图片路径
+     * @return 修改结果
+     * @throws Exception
+     */
+    public UserApiVo updateHead_portrail(int user_id,String head_portrail) throws Exception;
 
 
 }

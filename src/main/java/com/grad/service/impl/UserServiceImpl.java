@@ -177,10 +177,7 @@ public class UserServiceImpl implements IUserService {
             }
         }
 
-        if (user.getHead_portrail() != "" && user.getHead_portrail() != null && user.getHead_portrail().length() > 100){
-            result = false;
-            userApiVo.setMessage(userApiVo.getMessage() + "头像信息不合法！");
-        }
+
         if (user.getPassword() != "" && user.getPassword() != null && user.getPassword().length() > 20){
             result = false;
             userApiVo.setMessage(userApiVo.getMessage() + "密码数据不合法！");
@@ -207,7 +204,6 @@ public class UserServiceImpl implements IUserService {
                 tempUser.setUsername(user.getUsername());
                 tempUser.setTelphone(user.getTelphone());
                 tempUser.setBirthday(user.getBirthday());
-                tempUser.setHead_portrail(user.getHead_portrail());
                 tempUser.setGender(user.getGender());
                 tempUser.setPassword(user.getPassword());
                 tempUser.setIntroduce(user.getIntroduce());
@@ -221,10 +217,12 @@ public class UserServiceImpl implements IUserService {
                     if (records > 0){
                         //说明数据库中存在此号码
                         result = false;
+                        userApiVo.setCode(0);
                         userApiVo.setMessage(userApiVo.getMessage() + "修改电话号码失败！");
                     } else {
                         //说明可以进行电话号码的修改
                         //修改电话号码
+                        result = true;
                         userDao.modifyTelphone(tempUser);
                     }
                 }
@@ -238,10 +236,7 @@ public class UserServiceImpl implements IUserService {
                     if (tempUser.getBirthday() != null){
                         userDao.modifyBirthday(tempUser);
                     }
-                    //修改头像路径
-                    if (tempUser.getHead_portrail() != "" && tempUser.getHead_portrail() != null){
-                        userDao.modifyHead_portrail(tempUser);
-                    }
+
                     //修改用户性别
                     if (tempUser.getGender() == '0' || tempUser.getGender() == '1'){
                         userDao.modifyGender(tempUser);
@@ -258,6 +253,7 @@ public class UserServiceImpl implements IUserService {
                     //执行到此步说明更改用户信息成功
                     userApiVo.setMessage(userApiVo.getMessage() + "修改用户信息成功！");
                     userApiVo.setCode(1);
+                    userApiVo.setUser(userDao.findUserById(user.getUser_id()));
                 }
             }
         } else{
@@ -312,9 +308,63 @@ public class UserServiceImpl implements IUserService {
                         result = true;
                         userApiVo.setCode(1);
                         userApiVo.setMessage(userApiVo.getMessage() + "修改权限成功！");
+                        userApiVo.setUser(userDao.findUserById(user_id));
                     }
                 }
             }
+        }
+        return userApiVo;
+    }
+
+    public UserApiVo updateHead_portrail(int user_id, String head_portrail) throws Exception {
+        boolean result = true;
+        User user = new User();
+        userApiVo.setCode(0);
+        userApiVo.setMessage("");
+
+//        System.out.println("service----------------------------------");
+//        System.out.println(head_portrail);
+//        System.out.println("head_portrail.length:" + head_portrail.length());
+//        System.out.println("service----------------------------------");
+
+        //检验数据合法性
+        if (head_portrail != "" && head_portrail != null && head_portrail.length() > 100){
+            result = false;
+            userApiVo.setMessage(userApiVo.getMessage() + "头像信息不合法！");
+        }
+
+        //通过ID查询是否存在该用户
+        User queryUser = userDao.findUserById(user_id);
+        if(queryUser == null){
+            //数据库中不存在此用户
+            result = false;
+            userApiVo.setMessage(userApiVo.getMessage() + "用户不存在！");
+        } else {
+            //填充数据（保护原有数据）
+            user.setHead_portrail(head_portrail);
+            user.setUser_id(user_id);
+
+            //修改头像路径
+            if (user.getHead_portrail() != "" && user.getHead_portrail() != null){
+                userDao.modifyHead_portrail(user);
+            } else {
+                userApiVo.setMessage("头像信息错误");
+                result  = false;
+            }
+
+            if (result){
+                //执行到此步说明更改用户信息成功
+                userApiVo.setMessage(userApiVo.getMessage() + "修改用户信息成功！");
+                userApiVo.setCode(1);
+                userApiVo.setUser(null);
+            }
+
+
+        }
+        if (result == false){
+            //存在不合法信息
+            userApiVo.setCode(0);
+            userApiVo.setUser(null);
         }
         return userApiVo;
     }

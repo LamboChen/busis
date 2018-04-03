@@ -68,7 +68,7 @@ public class CollectionController {
     @ResponseBody
     public String deleteCollection(int collection_id) throws Exception{
         CollectionApiVo collectionApiVo = collectionService.deleteCollection(collection_id);
-        return ApiFormatUtil.apiFormat(collectionApiVo.getCode(),collectionApiVo.getMessage(),collectionApiVo.getCollection());
+        return ApiFormatUtil.apiFormat(collectionApiVo.getCode(),collectionApiVo.getMessage(),"");
     }
 
 

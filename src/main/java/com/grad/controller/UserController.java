@@ -89,6 +89,10 @@ public class UserController {
 
         String resultJson = gson.toJson(resultUser);
 
+        if(loginResult.getCode() == 0){
+            resultJson = "";
+        }
+
         return ApiFormatUtil.apiFormat(loginResult.getCode(),loginResult.getMessage(),resultJson);
     }
 
@@ -244,6 +248,11 @@ public class UserController {
 
         String resultJson = gson.toJson(resultUser);
 
+        if(userApiVo.getCode() == 0){
+            //注册失败
+            resultJson = "";
+        }
+
         return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
     }
 
@@ -266,6 +275,7 @@ public class UserController {
     @ResponseBody
     public String modifyUserBaseInformation(ModifyUserVo modifyUserVo) throws Exception{
         User user = new User();
+        User resultUser = new User();
         boolean result = false;
         UserApiVo userApiVo = new UserApiVo();
 
@@ -287,13 +297,27 @@ public class UserController {
 
         userApiVo = userService.updateUserInformation(user);
 
-        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),userApiVo.getUser());
+        GsonBuilder gsonBuilder = new GsonBuilder();
+//        gsonBuilder.setPrettyPrinting();        //格式化（仅用于开发阶段）
+        gsonBuilder.setDateFormat("yyyy-MM-dd");
+        Gson gson = gsonBuilder.create();
+
+        resultUser = SimpleUtil.hideSensitiveInformation(userApiVo.getUser());
+
+        String resultJson = gson.toJson(resultUser);
+
+
+        if(userApiVo.getCode() == 0){
+            resultJson = "";
+        }
+
+        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
     }
 
 
     /**
      * 修改用户头像图片
-     * @param head_portrail   用户新头像图片文件
+     * @param file   用户新头像图片文件
      * @param request
      * @param user_id   用户ID
      * @return  修改结果
@@ -301,7 +325,7 @@ public class UserController {
     @RequestMapping(value = "/modify/head_portrail",method = {RequestMethod.POST,RequestMethod.GET},
             produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public String modifyHead_portrail(@RequestParam(value = "head_portrail",required = false)MultipartFile head_portrail,
+    public String modifyHead_portrail(@RequestParam(value = "file",required = false)MultipartFile file,
                                       HttpServletRequest request, int user_id) throws Exception {
 
         //未进行测试
@@ -314,16 +338,31 @@ public class UserController {
         userApiVo.setUser(null);
 
         //将图片存储在服务器文件夹中，并返回文件路径
-        String head_portrailResult = UploadHead_portrailUtil.uploadHead_portrail(head_portrail,request);
+        String head_portrailResult = UploadHead_portrailUtil.uploadHead_portrail(file,request);
 
         //封装数据
         user.setUser_id(user_id);
-        user.setHead_portrail(head_portrailResult);
+        user.setHead_portrail(head_portrailResult.toString().trim());
+
+//        System.out.println("-------------------------------");
+//        System.out.println(head_portrailResult.toString().trim());
+//        System.out.println("length:" + head_portrailResult.length());
+//        System.out.println(user.getHead_portrail());
+//        System.out.println("-------------------------------");
 
         //进行数据库更新
-        userApiVo = userService.updateUserInformation(user);
+        userApiVo = userService.updateHead_portrail(user.getUser_id(),user.getHead_portrail());
 
-        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),userApiVo.getUser());
+        String resultJson = "";
+
+//        if(userApiVo.getCode() == 0){
+//            //修改头像失败
+//            resultJson = "";
+//        } else{
+//            resultJson = userService.getUserById(user.getUser_id()).getUser().getHead_portrail().trim();
+//        }
+
+        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
     }
 
 
@@ -347,7 +386,9 @@ public class UserController {
 
         userApiVo = userService.updateUserAuthority(user,modifyUser_id,modifyAuthority);
 
-        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),userApiVo.getUser());
+        String resultJson = "";
+
+        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
     }
 
 }
