@@ -1,5 +1,6 @@
 package com.grad.entity;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Component;
  * @author: Mr.Chen
  * @create: 2018-03-14 07:32
  **/
+
+@Scope(value = "prototype")
 @Component(value = "collection")
 public class Collection {
 

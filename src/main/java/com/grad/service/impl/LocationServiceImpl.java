@@ -5,6 +5,7 @@ import com.grad.entity.Location;
 import com.grad.service.ILocationService;
 import com.grad.vo.LocationApiVo;
 import com.grad.vo.LocationListApiVo;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -16,6 +17,8 @@ import java.util.List;
  * @author: Mr.Chen
  * @create: 2018-03-14 20:49
  **/
+
+@Scope(value = "singleton")
 @Component(value = "locationService")
 public class LocationServiceImpl implements ILocationService {
 

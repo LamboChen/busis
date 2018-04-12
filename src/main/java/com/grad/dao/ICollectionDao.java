@@ -1,6 +1,7 @@
 package com.grad.dao;
 
 import com.grad.entity.Collection;
+import org.springframework.context.annotation.Scope;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @create: 2018-03-15 12:09
  **/
 
-
+@Scope(value = "singleton")
 public interface ICollectionDao {
 
     /**

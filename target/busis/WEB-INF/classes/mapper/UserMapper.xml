@@ -159,4 +159,14 @@
             user_id = #{user_id}
     </update>
 
+
+    <select id="fuzzyQueryByUsername" parameterType="java.lang.String" resultType="com.grad.entity.User">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            tb_user
+        WHERE
+            tb_user.username LIKE '%${value}%'
+    </select>
+
 </mapper>

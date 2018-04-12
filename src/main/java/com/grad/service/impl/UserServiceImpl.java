@@ -7,6 +7,7 @@ import com.grad.util.TelphoneCheckUtil;
 import com.grad.vo.UserApiVo;
 import com.sun.prism.Texture;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
  * @create: 2018-03-13 13:10
  **/
 
+@Scope(value = "singleton")
 @Service(value = "userService")
 public class UserServiceImpl implements IUserService {
 
@@ -166,11 +168,20 @@ public class UserServiceImpl implements IUserService {
         userApiVo.setUser(null);
 
         //检验数据合法性
-        if (user.getUsername() != "" && user.getUsername() != null && user.getUsername().length() > 10){
-            result = false;
-            userApiVo.setMessage(userApiVo.getMessage() + "用户名不合法！");
+        if (user.getUsername() != "" && user.getUsername() != null){
+            if (user.getUsername().length() > 10){
+                result = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "用户名不超过10个字符！");
+            } else if (user.getUsername().length() < 1){
+                result = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "用户名不能为一个字符！");
+            }
         }
         if(user.getTelphone() != null && user.getTelphone() != ""){
+            if (user.getTelphone().length() != 11){
+                result = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "请输入有效电话号码！");
+            }
             if(!TelphoneCheckUtil.isPhoneLegal(user.getTelphone())){
                 result = false;
                 userApiVo.setMessage(userApiVo.getMessage() + "电话号码不合法！");
@@ -178,17 +189,21 @@ public class UserServiceImpl implements IUserService {
         }
 
 
-        if (user.getPassword() != "" && user.getPassword() != null && user.getPassword().length() > 20){
-            result = false;
-            userApiVo.setMessage(userApiVo.getMessage() + "密码数据不合法！");
+        if (user.getPassword() != "" && user.getPassword() != null){
+            if (user.getPassword().length() > 20 || user.getPassword().length() < 6){
+                result = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "密码须为6至20个字符！");
+            }
         }
-        if (user.getGender() != ' ' && user.getGender() != '1' && user.getGender() != '0'){
-            result = false;
-            userApiVo.setMessage(userApiVo.getMessage() + "性别信息不合法！");
-        }
-        if (user.getIntroduce() != "" && user.getIntroduce() != null && user.getIntroduce().length() > 200){
-            result = false;
-            userApiVo.setMessage(userApiVo.getMessage() + "用户介绍信息不合法！");
+//        if (user.getGender() != ' ' && user.getGender() != '1' && user.getGender() != '0'){
+//            result = false;
+//            userApiVo.setMessage(userApiVo.getMessage() + "性别信息不合法！");
+//        }
+        if (user.getIntroduce() != "" && user.getIntroduce() != null){
+            if (user.getIntroduce().length() > 200){
+                result = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "用户介绍信息不能超过200个字符！");
+            }
         }
 
         if (result){
@@ -210,20 +225,25 @@ public class UserServiceImpl implements IUserService {
 
                 //校验是否修改电话号码
                 if (tempUser.getTelphone() != null && tempUser.getTelphone() != ""){
-                    //用户欲修改电话号码
-                    //需要进行判断是否能够修改成功
-                    int records = -1;       //记录数
-                    records = userDao.queryTelphone(tempUser.getTelphone());
-                    if (records > 0){
-                        //说明数据库中存在此号码
-                        result = false;
-                        userApiVo.setCode(0);
-                        userApiVo.setMessage(userApiVo.getMessage() + "修改电话号码失败！");
-                    } else {
-                        //说明可以进行电话号码的修改
-                        //修改电话号码
-                        result = true;
-                        userDao.modifyTelphone(tempUser);
+                    if (tempUser.getTelphone().equals(queryUser.getTelphone())){
+                        //用户未进行电话号码修改
+
+                    } else{
+                        //用户欲修改电话号码
+                        //需要进行判断是否能够修改成功
+                        int records = -1;       //记录数
+                        records = userDao.queryTelphone(tempUser.getTelphone());
+                        if (records > 0 && !queryUser.getTelphone().equals(tempUser.getTelphone())){
+                            //说明数据库中存在此号码
+                            result = false;
+                            userApiVo.setCode(0);
+                            userApiVo.setMessage(userApiVo.getMessage() + "电话号码已注册！");
+                        } else {
+                            //说明可以进行电话号码的修改
+                            //修改电话号码
+                            result = true;
+                            userDao.modifyTelphone(tempUser);
+                        }
                     }
                 }
                 if (result){

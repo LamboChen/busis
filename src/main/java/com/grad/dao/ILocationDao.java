@@ -1,6 +1,7 @@
 package com.grad.dao;
 
 import com.grad.entity.Location;
+import org.springframework.context.annotation.Scope;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @create: 2018-03-14 19:58
  **/
 
+@Scope(value = "singleton")
 public interface ILocationDao {
 
     /**

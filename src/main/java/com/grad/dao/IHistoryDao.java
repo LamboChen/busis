@@ -2,6 +2,7 @@ package com.grad.dao;
 
 import com.grad.entity.History;
 import com.grad.vo.StartAndEndPointVo;
+import org.springframework.context.annotation.Scope;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ import java.util.List;
  **/
 //事物注解仅测试使用
 //@Transactional
+
+@Scope(value = "singleton")
 public interface IHistoryDao {
 
 

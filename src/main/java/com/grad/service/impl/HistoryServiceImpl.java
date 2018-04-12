@@ -6,6 +6,7 @@ import com.grad.service.IHistoryService;
 import com.grad.vo.HistoryApiVo;
 import com.grad.vo.HistoryListApiVo;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,6 +21,8 @@ import java.util.List;
  * @author: Mr.Chen
  * @create: 2018-03-14 10:25
  **/
+
+@Scope(value = "singleton")
 @Service(value = "historyService")
 public class HistoryServiceImpl implements IHistoryService {
 

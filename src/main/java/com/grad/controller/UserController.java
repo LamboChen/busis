@@ -5,9 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.grad.entity.User;
 import com.grad.service.IUserService;
 import com.grad.util.*;
-import com.grad.vo.ModifyUserVo;
+import com.grad.dto.ModifyUserDto;
 import com.grad.vo.UserApiVo;
-import com.grad.vo.UserBaseInformationVo;
+import com.grad.dto.UserBaseInformationDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -99,7 +99,7 @@ public class UserController {
 
     /**
      * 用户注册
-     * @param userBaseInformationVo
+     * @param userBaseInformationDto
      *          username：用户姓名
      *          password：用户密码
      *          telphone：用户电话号码
@@ -121,7 +121,7 @@ public class UserController {
     @RequestMapping(value = "/register",method = {RequestMethod.POST,RequestMethod.GET},
             produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public String registerUser(UserBaseInformationVo userBaseInformationVo) throws Exception {
+    public String registerUser(UserBaseInformationDto userBaseInformationDto) throws Exception {
         User tempUser = new User();
         User resultUser = new User();
         boolean check = true;
@@ -132,15 +132,15 @@ public class UserController {
         userApiVo.setMessage("说明：");
 
         //必填项检查
-        if (userBaseInformationVo.getUsername() == "" || userBaseInformationVo.getUsername() == null){
+        if (userBaseInformationDto.getUsername() == "" || userBaseInformationDto.getUsername() == null){
             check = false;
             userApiVo.setMessage(userApiVo.getMessage() + "用户名不能为空！");
         }
-        if(userBaseInformationVo.getTelphone() == "" || userBaseInformationVo.getTelphone() == null){
+        if(userBaseInformationDto.getTelphone() == "" || userBaseInformationDto.getTelphone() == null){
             check = false;
             userApiVo.setMessage(userApiVo.getMessage() + "电话号码不能为空！");
         }
-        if (userBaseInformationVo.getPassword() == "" || userBaseInformationVo.getPassword() == null){
+        if (userBaseInformationDto.getPassword() == "" || userBaseInformationDto.getPassword() == null){
             check = false;
             userApiVo.setMessage(userApiVo.getMessage() + "密码不能为空！");
         }
@@ -151,27 +151,27 @@ public class UserController {
         } else {
             //填充数据，并检验数据合法性
             //检验username长度
-            if(userBaseInformationVo.getUsername().length() < 10){
-                tempUser.setUsername(userBaseInformationVo.getUsername());
+            if(userBaseInformationDto.getUsername().length() < 10 || userBaseInformationDto.getUsername().length() < 2){
+                tempUser.setUsername(userBaseInformationDto.getUsername());
             } else {
                 //username数据长度不合法
                 check = false;
-                userApiVo.setMessage(userApiVo.getMessage() + "用户名不能超过10个字符！");
+                userApiVo.setMessage(userApiVo.getMessage() + "用户名应为2至10个字符！");
             }
             //验证手机号码是否合法
-            if (TelphoneCheckUtil.isPhoneLegal(userBaseInformationVo.getTelphone())){
-                tempUser.setTelphone(userBaseInformationVo.getTelphone());
+            if (TelphoneCheckUtil.isPhoneLegal(userBaseInformationDto.getTelphone())){
+                tempUser.setTelphone(userBaseInformationDto.getTelphone());
             } else {
                 check = false;
-                userApiVo.setMessage(userApiVo.getMessage() + "电话号码不正确！");
+                userApiVo.setMessage(userApiVo.getMessage() + "电话号码非法！");
             }
             //检验密码长度是否合法
-            if (userBaseInformationVo.getPassword().length() < 20){
-                tempUser.setPassword(userBaseInformationVo.getPassword());
+            if (userBaseInformationDto.getPassword().length() < 20 && userBaseInformationDto.getPassword().length() >= 6){
+                tempUser.setPassword(userBaseInformationDto.getPassword());
             } else {
                 //数据不合法
                 check = false;
-                userApiVo.setMessage(userApiVo.getMessage() + "密码长度不能超过20个字符！");
+                userApiVo.setMessage(userApiVo.getMessage() + "密码应为6至20个字符！");
             }
 
             //判断必填项是否合法结果
@@ -181,13 +181,13 @@ public class UserController {
 
             } else {
                 //必填项合法，填充其他信息
-                if (userBaseInformationVo.getBirthday() != null && userBaseInformationVo.getBirthday() != null){
+                if (userBaseInformationDto.getBirthday() != null && userBaseInformationDto.getBirthday() != null){
                     //将字符串转换为Date
-                    tempUser.setBirthday(GetDateByStringUtils.getDate(userBaseInformationVo.getBirthday()));
+                    tempUser.setBirthday(GetDateByStringUtils.getDate(userBaseInformationDto.getBirthday()));
                 }
-                if (userBaseInformationVo.getGender() != "" && userBaseInformationVo.getGender() != null){
+                if (userBaseInformationDto.getGender() != "" && userBaseInformationDto.getGender() != null){
 //                    tempUser.setGender((char) user.getGender().indexOf(1));
-                    if (userBaseInformationVo.getGender().equals("1")){
+                    if (userBaseInformationDto.getGender().equals("1")){
                         tempUser.setGender('1');
                     } else {
                         tempUser.setGender('0');
@@ -196,8 +196,8 @@ public class UserController {
                     //用户注册时未填写性别
                     tempUser.setGender(' ');
                 }
-                if (userBaseInformationVo.getIntroduce() != "" && userBaseInformationVo.getIntroduce() != null){
-                    tempUser.setIntroduce(userBaseInformationVo.getIntroduce());
+                if (userBaseInformationDto.getIntroduce() != "" && userBaseInformationDto.getIntroduce() != null){
+                    tempUser.setIntroduce(userBaseInformationDto.getIntroduce());
                 }
             }
         }
@@ -208,21 +208,21 @@ public class UserController {
 
             resultId = -1;      //标识注册失败
             resultUser.setUser_id(resultId);
-            resultUser.setUsername(userBaseInformationVo.getUsername());
-            resultUser.setIntroduce(userBaseInformationVo.getIntroduce());
+            resultUser.setUsername(userBaseInformationDto.getUsername());
+            resultUser.setIntroduce(userBaseInformationDto.getIntroduce());
 //            resultUser.setGender((char) user.getGender().indexOf(1));
-            if (userBaseInformationVo.getGender() != null){
-                if (userBaseInformationVo.getGender().equals("1")){
+            if (userBaseInformationDto.getGender() != null){
+                if (userBaseInformationDto.getGender().equals("1")){
                     tempUser.setGender('1');
                 } else {
                     tempUser.setGender('0');
                 }
             }
-            if (userBaseInformationVo.getBirthday() != null){
-                resultUser.setBirthday(GetDateByStringUtils.getDate(userBaseInformationVo.getBirthday()));
+            if (userBaseInformationDto.getBirthday() != null){
+                resultUser.setBirthday(GetDateByStringUtils.getDate(userBaseInformationDto.getBirthday()));
             }
-            resultUser.setPassword(userBaseInformationVo.getPassword());
-            resultUser.setTelphone(userBaseInformationVo.getTelphone());
+            resultUser.setPassword(userBaseInformationDto.getPassword());
+            resultUser.setTelphone(userBaseInformationDto.getTelphone());
         } else {
             //进行注册操作
             userApiVo = userService.registerUser(tempUser);
@@ -259,7 +259,7 @@ public class UserController {
 
     /**
      * 修改用户基本信息
-     * @param modifyUserVo
+     * @param modifyUserDto
      *          user_id: 用户ID
      *          username：用户姓名
      *          password：用户密码
@@ -273,40 +273,61 @@ public class UserController {
     @RequestMapping(value = "/modify",method = {RequestMethod.POST,RequestMethod.GET},
             produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public String modifyUserBaseInformation(ModifyUserVo modifyUserVo) throws Exception{
+    public String modifyUserBaseInformation(ModifyUserDto modifyUserDto) throws Exception{
         User user = new User();
         User resultUser = new User();
         boolean result = false;
         UserApiVo userApiVo = new UserApiVo();
+        String resultJson = "";
 
-        userApiVo.setMessage("说明：");
+//        userApiVo.setMessage("说明：");
 
-        user.setUser_id(modifyUserVo.getUser_id());
-        user.setUsername(modifyUserVo.getUsername());
-        user.setPassword(modifyUserVo.getPassword());
-        if (modifyUserVo.getGender().equals("1")){
-            user.setGender('1');
-        } else {
-            user.setGender('0');
-        }
-        if (modifyUserVo.getBirthday() != null){
-            user.setBirthday(GetDateByStringUtils.getDate(modifyUserVo.getBirthday()));
-        }
-        user.setIntroduce(modifyUserVo.getIntroduce());
-        user.setTelphone(modifyUserVo.getTelphone());
+        if(modifyUserDto.getUser_id() <= 0){
+            //user_id非法
+            result = false;
+            resultJson = "";
+            userApiVo.setCode(0);
+            userApiVo.setMessage("不存在此用户");
+        }else {
+            //填充数据
+            user.setUser_id(modifyUserDto.getUser_id());
+            if(modifyUserDto.getUsername() != null && modifyUserDto.getUsername() != ""){
+                user.setUsername(modifyUserDto.getUsername());
+            }
+            if(modifyUserDto.getPassword() != null && modifyUserDto.getPassword() != ""){
+                user.setPassword(modifyUserDto.getPassword());
+            }
+            if(modifyUserDto.getGender() != null && modifyUserDto.getGender() != ""){
+                if (modifyUserDto.getGender().equals("1")){
+                    //判断用户性别
+                    user.setGender('1');
+                } else {
+                    //默认为0：女
+                    user.setGender('0');
+                }
+            }
 
-        userApiVo = userService.updateUserInformation(user);
+            if (modifyUserDto.getBirthday() != null && modifyUserDto.getBirthday() != ""){
+                user.setBirthday(GetDateByStringUtils.getDate(modifyUserDto.getBirthday()));
+            }
+            if (modifyUserDto.getIntroduce() != null && modifyUserDto.getIntroduce() != ""){
+                user.setIntroduce(modifyUserDto.getIntroduce());
+            }
+            if(modifyUserDto.getTelphone() != null && modifyUserDto.getIntroduce() != ""){
+                user.setTelphone(modifyUserDto.getTelphone());
+            }
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
+            userApiVo = userService.updateUserInformation(user);
+
+            GsonBuilder gsonBuilder = new GsonBuilder();
 //        gsonBuilder.setPrettyPrinting();        //格式化（仅用于开发阶段）
-        gsonBuilder.setDateFormat("yyyy-MM-dd");
-        Gson gson = gsonBuilder.create();
+            gsonBuilder.setDateFormat("yyyy-MM-dd");
+            Gson gson = gsonBuilder.create();
 
-        resultUser = SimpleUtil.hideSensitiveInformation(userApiVo.getUser());
+            resultUser = SimpleUtil.hideSensitiveInformation(userApiVo.getUser());
 
-        String resultJson = gson.toJson(resultUser);
-
-
+            resultJson = gson.toJson(resultUser);
+        }
         if(userApiVo.getCode() == 0){
             resultJson = "";
         }

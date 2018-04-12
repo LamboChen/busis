@@ -1,5 +1,6 @@
 package com.grad.entity;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Component;
  * @author: Mr.Chen
  * @create: 2018-03-14 07:46
  **/
+
 @Component(value = "bus")
+@Scope(value = "prototype")
 public class Bus {
 
     private int bus_id;     //公交ID

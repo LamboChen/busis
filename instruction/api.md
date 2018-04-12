@@ -50,7 +50,7 @@
     user_id：用户登录成功返回用户ID
     username：用户姓名
     password：用户密码（鉴于安全，一般为空）
-    gender：用户性别
+    gender：用户性别（1：男 0：女）
     birthday：用户出生日期
     head_portrail：用户头像图片路径
     introduce：用户介绍
@@ -81,24 +81,24 @@
 
 2、参数说明
 
-    username(string)：用户姓名(必填)
-    password(string)：用户密码(必填)
+    username(string)：用户姓名(必填)【2-10个字符】
+    password(string)：用户密码(必填)【6-20个字符】
     telphone(string)：用户电话号码(必填)
-    gender(string)：用户性别
-    birthday(string)：用户出生日期(yyyy-MM-dd)
-    introduce(string)：用户介绍
+    gender(string)：用户性别【1：男 0：女 默认为女】
+    birthday(string)：用户出生日期【yyyy-MM-dd】
+    introduce(string)：用户介绍【0-200个字符】
 
 3、返回（JSON格式字符串）
 
     user_id：用户注册成功返回用户ID
     username：用户姓名
     password：用户密码（鉴于安全，一般为空）
-    gender：用户性别
-    birthday：用户出生日期
+    gender：用户性别【1：男 0：女 默认为女】
+    birthday：用户出生日期【yyyy-MM-dd】
     head_portrail：用户头像图片文件路径
     introduce：用户介绍
     telphone：用户电话号码
-    authority: 用户权限等级
+    authority: 用户权限等级(1:超级管理员 2：普通管理员 3：普通用户)
     （注：若注册成功，返回值均为数据库中查询当前注册用户所得。若注册失败，返回为空）
 
 4、示例
@@ -115,12 +115,12 @@
 2、参数说明
 
     user_id(int)：用户ID(必填)
-    username(string)：用户姓名
-    password(string)：用户密码
-    gender(string)：用户性别
+    username(string)：用户姓名【2-10个字符】
+    password(string)：用户密码【6-20个字符】
+    gender(string)：用户性别【1：男 0：女 默认为女】
     birthday(string)：用户出生日期(yyyy-MM-dd)
-    introduce(string)：用户介绍
-    telphone(string)：用户电话号码
+    introduce(string)：用户介绍【0-200个字符】
+    telphone(string)：用户电话号码【11个字符】
 
 3、返回（JSON字符串）
 
@@ -128,12 +128,12 @@
         user_id：用户注册成功返回用户ID
         username：用户姓名
         password：用户密码（鉴于安全，一般为空）
-        gender：用户性别
-        birthday：用户出生日期
+        gender：用户性别（1：男 0：女）
+        birthday：用户出生日期（yyyy-MM-dd）
         head_portrail：用户头像图片文件路径
         introduce：用户介绍
         telphone：用户电话号码
-        authority: 用户权限等级
+        authority: 用户权限等级(1:超级管理员 2：普通管理员 3：普通用户)
     2）修改失败返回为空
    
 

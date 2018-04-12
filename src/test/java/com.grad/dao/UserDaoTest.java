@@ -6,7 +6,9 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: busis
@@ -16,11 +18,14 @@ import java.util.Date;
  **/
 public class UserDaoTest {
 
+    @Resource
+    private IUserDao userDao;
+
     private ApplicationContext applicationContext;
 
     @Before
     public void setUp(){
-        applicationContext = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        applicationContext = new ClassPathXmlApplicationContext("spring/spring-mybatis.xml");
     }
 
     @Test
@@ -268,5 +273,19 @@ public class UserDaoTest {
         User result = userDao.findUserById(user_id);
 
         System.out.println(result.getAuthority());
+    }
+
+
+
+    @Test
+    public void testFuzzyQueryByUsername() throws Exception{
+
+        String username = "B";
+        System.out.println("userDao:" + userDao);
+        List<User> userList = userDao.fuzzyQueryByUsername(username);
+        for (User user : userList){
+            System.out.println(user.getUsername());
+        }
+
     }
 }

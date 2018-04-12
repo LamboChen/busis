@@ -1,6 +1,9 @@
 package com.grad.dao;
 
 import com.grad.entity.User;
+import org.springframework.context.annotation.Scope;
+
+import java.util.List;
 
 /**
  * @program: busis
@@ -10,6 +13,7 @@ import com.grad.entity.User;
  **/
 
 //@Transactional
+@Scope(value = "singleton")
 public interface IUserDao {
 
     //通过用户ID查询用户
@@ -133,7 +137,13 @@ public interface IUserDao {
     public void modifyAuthority(User user) throws Exception;
 
 
-
+    /**
+     * 通过用户名部分进行模糊查询得到用户列表
+     * @param usernamePart
+     * @return  用户列表
+     * @throws Exception
+     */
+    public List<User> fuzzyQueryByUsername(String usernamePart) throws Exception;
 
 
 }

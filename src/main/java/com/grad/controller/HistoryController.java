@@ -6,7 +6,7 @@ import com.grad.util.ApiFormatUtil;
 import com.grad.util.GetDateByStringUtils;
 import com.grad.vo.HistoryApiVo;
 import com.grad.vo.HistoryListApiVo;
-import com.grad.vo.HistoryVo;
+import com.grad.dto.HistoryVo;
 import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

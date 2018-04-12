@@ -6,6 +6,7 @@ import com.grad.service.ICollectionService;
 import com.grad.vo.CollectionApiVo;
 import com.grad.vo.CollectionListApiVo;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import java.util.List;
  * @create: 2018-03-15 12:53
  **/
 
+@Scope(value = "singleton")
 @Service(value = "collectionService")
 public class CollectionServiceImpl implements ICollectionService {
 
