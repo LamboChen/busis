@@ -2,12 +2,13 @@ package com.grad.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.grad.dto.ModifyUserDto;
+import com.grad.dto.UserBaseInformationDto;
 import com.grad.entity.User;
 import com.grad.service.IUserService;
 import com.grad.util.*;
-import com.grad.dto.ModifyUserDto;
+import com.grad.vo.SmsVo;
 import com.grad.vo.UserApiVo;
-import com.grad.dto.UserBaseInformationDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -410,6 +411,53 @@ public class UserController {
         String resultJson = "";
 
         return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
+    }
+
+
+    /**
+     * 发送短信验证码
+     * @param telphone
+     * @return  发送结果
+     * @throws Exception
+     */
+    @RequestMapping(value = "/sms",method = {RequestMethod.POST,RequestMethod.GET},
+            produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String sendSmsCode(String telphone) throws Exception{
+
+        int resultCode = 0;
+        String result = "";
+
+        if (telphone != "" && telphone != null){
+            //接收参数正确
+            if(TelphoneCheckUtil.isPhoneLegal(telphone)){
+                //电话号码格式正确
+                SmsVo smsVo = IndustrySMS.execute(telphone);
+                if (smsVo.getStatusCode().equals("00000")){
+                    //短信发送成功
+                    resultCode = 1;
+                    result = "短信发送成功！";
+
+                    //需要在此处添加session，用于时间校验
+
+
+                } else {
+                    //短信发送失败
+                    resultCode = 0;
+                    result = "短信发送失败！";
+                }
+
+            } else {
+                result  = "电话号码无效！";
+                resultCode = 0;
+            }
+        }else {
+            //未接收到参数
+            result = "未接收到电话号码数据！";
+            resultCode = 0;
+        }
+
+        return ApiFormatUtil.apiFormat(resultCode,result,"");
     }
 
 }

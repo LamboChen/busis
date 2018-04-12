@@ -181,10 +181,28 @@
 
     http://120.77.170.124:8080/busis/user/modify/authority.do?user_id=1&modifyUser_id=4&modifyAuthority=2
 
+##### 六、发送短信验证码
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/user/sms.do
+
+2、参数说明
+
+    telphone(string)：电话号码(必填)
+
+3、返回（JSON字符串）
+
+    空
+
+4、示例
+
+    http://120.77.170.124:8080/busis/user/sms.do?telphone=13008142306
+
 
 #### 历史路线相关API
 
-##### 六、添加历史路线
+##### 一、添加历史路线
 
 1、接口URL
 
@@ -214,7 +232,7 @@
         &route_information=route-information test&user_id=1
     
     
-##### 七、获得历史路线信息列表
+##### 二、获得历史路线信息列表
 
 1、接口URL
 
@@ -246,7 +264,7 @@
 
 #### 位置收藏相关API
 
-##### 八、添加位置收藏
+##### 一、添加位置收藏
 
 1、接口URL
 
@@ -270,7 +288,7 @@
     http://120.77.170.124:8080/busis/location/add.do?location_name=xhu&location_longitude=1.1&location_latitude=2.2
         &location_type=xhu&area=成都&user_id=1
     
-##### 九、删除收藏位置
+##### 二、删除收藏位置
  
 1、接口URL
 
@@ -289,7 +307,7 @@
     http://120.77.170.124:8080/busis/location/delete.do?location_id=1
 
 
-##### 十、查询用户收藏地点
+##### 三、查询用户收藏地点
 
 1、接口URL
 
@@ -315,7 +333,7 @@
     http://120.77.170.124:8080/busis/location/query.do?user_id=1
 
 
-##### 十一、统计某位置被多少用户收藏
+##### 四、统计某位置被多少用户收藏
 
 1、接口URL
 
@@ -342,7 +360,7 @@
 
 #### 路线收藏相关API
 
-##### 十二、添加收藏路线信息
+##### 一、添加收藏路线信息
 
 1、接口URL
 
@@ -370,7 +388,7 @@
     http://120.77.170.124:8080/busis/collection/add.do?start_point=西华大学&end_point=天府广场&start_longitude=1.1
         &start_latitude=2.2&end_longitude=3.3&end_latitude=4.4&area=四川成都&route_information=route-information test&user_id=1
 
-##### 十三、用户删除收藏路线信息
+##### 二、用户删除收藏路线信息
 
 1、接口URL
 
@@ -389,7 +407,7 @@
     http://120.77.170.124:8080/busis/collection/delete.do?collection_id=1
 
 
-##### 十四、通过用户ID查询用户收藏路线
+##### 三、通过用户ID查询用户收藏路线
 
 1、接口URL
 
@@ -416,7 +434,7 @@
 
     http://120.77.170.124:8080/busis/collection/query.do?user_id=1
     
-##### 十五、统计某路线被多少用户收藏
+##### 四、统计某路线被多少用户收藏
 
 1、接口URL
 
