@@ -10,6 +10,7 @@ import java.util.regex.PatternSyntaxException;
  * @author: Mr.Chen
  * @create: 2018-03-13 13:25
  **/
+
 public class TelphoneCheckUtil {
 
     /**
@@ -29,7 +30,7 @@ public class TelphoneCheckUtil {
      * 147
      */
     public static boolean isChinaPhoneLegal(String str) throws PatternSyntaxException {
-        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,4,5-9])|(17[0-8])|(147))\\d{8}$";
         Pattern p = Pattern.compile(regExp);
         Matcher m = p.matcher(str);
         return m.matches();

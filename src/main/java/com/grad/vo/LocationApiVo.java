@@ -1,6 +1,7 @@
 package com.grad.vo;
 
 import com.grad.entity.Location;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @author: Mr.Chen
  * @create: 2018-03-22 18:49
  **/
-
+@Scope(value = "prototype")
 @Component(value = "locationApiVo")
 public class LocationApiVo {
 

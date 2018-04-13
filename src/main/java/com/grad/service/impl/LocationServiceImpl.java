@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -104,7 +105,7 @@ public class LocationServiceImpl implements ILocationService {
     }
 
     public LocationListApiVo findLocationByUser_id(int user_id) throws Exception {
-        List<Location> locationList = locationDao.findLocationByUser_id(user_id);
+        ArrayList<Location> locationList = (ArrayList<Location>) locationDao.findLocationByUser_id(user_id);
         locationListApiVo.setCode(1);
         locationListApiVo.setMessage("查询成功");
         locationListApiVo.setLocationList(locationList);

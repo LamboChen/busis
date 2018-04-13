@@ -1,9 +1,10 @@
 package com.grad.vo;
 
 import com.grad.entity.History;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @program: busis
@@ -11,12 +12,13 @@ import java.util.List;
  * @author: Mr.Chen
  * @create: 2018-03-22 18:24
  **/
+@Scope(value = "prototype")
 @Component(value = "historyListApiVo")
 public class HistoryListApiVo {
 
     private int code;
     private String message;
-    private List<History> historyList;
+    private ArrayList<History> historyList;
 
     public HistoryListApiVo(){
 
@@ -38,11 +40,11 @@ public class HistoryListApiVo {
         this.message = message;
     }
 
-    public List<History> getHistoryList() {
-        return historyList;
+    public void setHistoryList(ArrayList<History> historyList) {
+        this.historyList = historyList;
     }
 
-    public void setHistoryList(List<History> historyList) {
-        this.historyList = historyList;
+    public ArrayList<History> getHistoryList() {
+        return historyList;
     }
 }

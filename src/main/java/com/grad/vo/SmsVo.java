@@ -1,5 +1,9 @@
 package com.grad.vo;
 
+import com.grad.entity.MiaoDiReturn;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 /**
  * @program: busis
  * @description: 短信验证码Vo
@@ -7,10 +11,13 @@ package com.grad.vo;
  * @create: 2018-04-12 15:37
  **/
 
+@Scope(value = "prototype")
+@Component(value = "smsVo")
 public class SmsVo {
 
     private String statusCode;
     private String verificationCode;
+    private MiaoDiReturn miaoDiReturn;
 
     public SmsVo(){
 
@@ -30,6 +37,14 @@ public class SmsVo {
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
+    }
+
+    public MiaoDiReturn getMiaoDiReturn() {
+        return miaoDiReturn;
+    }
+
+    public void setMiaoDiReturn(MiaoDiReturn miaoDiReturn) {
+        this.miaoDiReturn = miaoDiReturn;
     }
 }
 

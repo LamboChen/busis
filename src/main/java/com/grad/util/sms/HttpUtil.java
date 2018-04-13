@@ -93,7 +93,7 @@ public class HttpUtil
 	 * 回调测试工具方法
 	 * 
 	 * @param url
-	 * @param reqStr
+	 * @param
 	 * @return
 	 */
 	public static String postHuiDiao(String url, String body)

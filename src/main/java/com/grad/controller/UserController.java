@@ -3,6 +3,7 @@ package com.grad.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.grad.dto.ModifyUserDto;
+import com.grad.dto.RecoverPasswordDto;
 import com.grad.dto.UserBaseInformationDto;
 import com.grad.entity.User;
 import com.grad.service.IUserService;
@@ -14,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * @program: busis
@@ -107,6 +109,7 @@ public class UserController {
      *          gender：用户性别
      *          birthday: 用户出生日期（yyyy-MM-dd）
      *          introduce: 用户备注
+     *          code: 短信验证码
      * @return  用户基本信息
      *          user_id：用户登录成功返回用户ID，登录失败返回-1
      *          username：用户姓名
@@ -122,7 +125,9 @@ public class UserController {
     @RequestMapping(value = "/register",method = {RequestMethod.POST,RequestMethod.GET},
             produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public String registerUser(UserBaseInformationDto userBaseInformationDto) throws Exception {
+    public String registerUser(UserBaseInformationDto userBaseInformationDto,
+                               HttpServletRequest request,HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
         User tempUser = new User();
         User resultUser = new User();
         boolean check = true;
@@ -131,6 +136,28 @@ public class UserController {
 
         //初始化结果说明
         userApiVo.setMessage("说明：");
+
+        //判断短信验证码是否有效
+        String smsCode = (String) session.getAttribute("code");
+        String smsTelphone = (String) session.getAttribute("telphone");
+
+        if (userBaseInformationDto.getCode() == "" || userBaseInformationDto.getCode() == null){
+            //验证失败
+            check = false;
+            userApiVo.setMessage(userApiVo.getMessage() + "未输入短信验证码！");
+        } else if (!userBaseInformationDto.getTelphone().equals(smsTelphone)){
+            //验证失败
+            check = false;
+            userApiVo.setMessage(userApiVo.getMessage() + "手机号码错误！");
+
+        } else if (!userBaseInformationDto.getCode().equals(smsCode)){
+            //验证失败
+            check = false;
+            userApiVo.setMessage(userApiVo.getMessage() + "短信验证码错误！");
+        } else {
+            //验证成功
+
+        }
 
         //必填项检查
         if (userBaseInformationDto.getUsername() == "" || userBaseInformationDto.getUsername() == null){
@@ -338,19 +365,68 @@ public class UserController {
 
 
     /**
-     * 修改用户头像图片
+     * 修改用户头像图片(用户上传图片的形式)
      * @param file   用户新头像图片文件
      * @param request
      * @param user_id   用户ID
      * @return  修改结果
      */
+//    @RequestMapping(value = "/modify/head_portrail",method = {RequestMethod.POST,RequestMethod.GET},
+//            produces = "text/json;charset=UTF-8")
+//    @ResponseBody
+//    public String modifyHead_portrail(@RequestParam(value = "file",required = false)MultipartFile file,
+//                                      HttpServletRequest request, int user_id) throws Exception {
+//
+//        //未进行测试
+//
+//        User user = new User();
+//        boolean result = false;
+//        UserApiVo userApiVo = new UserApiVo();
+//
+//        userApiVo.setMessage("说明：");
+//        userApiVo.setUser(null);
+//
+//        //将图片存储在服务器文件夹中，并返回文件路径
+//        String head_portrailResult = UploadHead_portrailUtil.uploadHead_portrail(file,request);
+//
+//        //封装数据
+//        user.setUser_id(user_id);
+//        user.setHead_portrail(head_portrailResult.toString().trim());
+//
+////        System.out.println("-------------------------------");
+////        System.out.println(head_portrailResult.toString().trim());
+////        System.out.println("length:" + head_portrailResult.length());
+////        System.out.println(user.getHead_portrail());
+////        System.out.println("-------------------------------");
+//
+//        //进行数据库更新
+//        userApiVo = userService.updateHead_portrail(user.getUser_id(),user.getHead_portrail());
+//
+//        String resultJson = "";
+//
+////        if(userApiVo.getCode() == 0){
+////            //修改头像失败
+////            resultJson = "";
+////        } else{
+////            resultJson = userService.getUserById(user.getUser_id()).getUser().getHead_portrail().trim();
+////        }
+//
+//        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
+//    }
+
+
+    /**
+     * 修改用户头像（用户上传base64形式的字符串）
+     * @param user_id   用户ID
+     * @param head_portrail 用户头像
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/modify/head_portrail",method = {RequestMethod.POST,RequestMethod.GET},
             produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public String modifyHead_portrail(@RequestParam(value = "file",required = false)MultipartFile file,
-                                      HttpServletRequest request, int user_id) throws Exception {
-
-        //未进行测试
+    public String modifyHead_portrail(int user_id,String head_portrail,HttpServletRequest request) throws Exception{
 
         User user = new User();
         boolean result = false;
@@ -359,34 +435,18 @@ public class UserController {
         userApiVo.setMessage("说明：");
         userApiVo.setUser(null);
 
-        //将图片存储在服务器文件夹中，并返回文件路径
-        String head_portrailResult = UploadHead_portrailUtil.uploadHead_portrail(file,request);
-
         //封装数据
         user.setUser_id(user_id);
-        user.setHead_portrail(head_portrailResult.toString().trim());
-
-//        System.out.println("-------------------------------");
-//        System.out.println(head_portrailResult.toString().trim());
-//        System.out.println("length:" + head_portrailResult.length());
-//        System.out.println(user.getHead_portrail());
-//        System.out.println("-------------------------------");
+        user.setHead_portrail(head_portrail);
 
         //进行数据库更新
         userApiVo = userService.updateHead_portrail(user.getUser_id(),user.getHead_portrail());
 
         String resultJson = "";
 
-//        if(userApiVo.getCode() == 0){
-//            //修改头像失败
-//            resultJson = "";
-//        } else{
-//            resultJson = userService.getUserById(user.getUser_id()).getUser().getHead_portrail().trim();
-//        }
-
         return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
-    }
 
+    }
 
     /**
      * 修改其他用户权限
@@ -399,17 +459,13 @@ public class UserController {
             produces = "text/json;charset=UTF-8")
     @ResponseBody
     public String modifyAuthority(int user_id,int modifyUser_id,char modifyAuthority) throws Exception {
-
         User user = new User();
         boolean result = false;
         UserApiVo userApiVo = new UserApiVo();
 
         user.setUser_id(user_id);
-
         userApiVo = userService.updateUserAuthority(user,modifyUser_id,modifyAuthority);
-
         String resultJson = "";
-
         return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
     }
 
@@ -423,8 +479,9 @@ public class UserController {
     @RequestMapping(value = "/sms",method = {RequestMethod.POST,RequestMethod.GET},
             produces = "text/json;charset=UTF-8")
     @ResponseBody
-    public String sendSmsCode(String telphone) throws Exception{
-
+    public String sendSmsCode(String telphone, HttpServletRequest request, HttpServletResponse response) throws Exception{
+        //获取session对象
+        HttpSession session = request.getSession();
         int resultCode = 0;
         String result = "";
 
@@ -433,20 +490,34 @@ public class UserController {
             if(TelphoneCheckUtil.isPhoneLegal(telphone)){
                 //电话号码格式正确
                 SmsVo smsVo = IndustrySMS.execute(telphone);
-                if (smsVo.getStatusCode().equals("00000")){
-                    //短信发送成功
-                    resultCode = 1;
-                    result = "短信发送成功！";
+//                if (smsVo.getStatusCode().equals("00000")){
+//                    //短信发送成功
+//                    resultCode = 1;
+//                    result = "短信发送成功！";
+//
+//                    //将验证码与电话号码存入session，并设置125秒有效期限
+//                    session.setAttribute("code",smsVo.getVerificationCode());
+//                    session.setAttribute("telphone",telphone);
+//                    session.setMaxInactiveInterval(2*60 + 5);
+//
+//                } else {
+//                    //短信发送失败
+//                    resultCode = 0;
+//                    result = "短信发送失败！" ;
+//                    if (smsVo.getMiaoDiReturn() != null){
+//                        result += smsVo.getMiaoDiReturn().getRespDesc();
+//                    }
+//                }
 
-                    //需要在此处添加session，用于时间校验
 
+                //短信发送成功
+                resultCode = 1;
+                result = "短信发送成功！";
 
-                } else {
-                    //短信发送失败
-                    resultCode = 0;
-                    result = "短信发送失败！";
-                }
-
+                //将验证码与电话号码存入session，并设置125秒有效期限
+                session.setAttribute("code",smsVo.getVerificationCode());
+                session.setAttribute("telphone",telphone);
+                session.setMaxInactiveInterval(2*60 + 5);
             } else {
                 result  = "电话号码无效！";
                 resultCode = 0;
@@ -457,7 +528,106 @@ public class UserController {
             resultCode = 0;
         }
 
+//        response.setContentType("application/json;charset=UTF-8");
+
         return ApiFormatUtil.apiFormat(resultCode,result,"");
     }
 
+
+    /**
+     * 用于找回密码
+     * @param
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/recover",method = {RequestMethod.POST,RequestMethod.GET},
+            produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String recoverPassword(RecoverPasswordDto recoverPasswordDto, HttpServletRequest request,
+                                  HttpServletResponse response) throws Exception{
+        //声明返回
+        int resultCode = 1;
+        String resultMessage = "";
+
+        //获取session
+        HttpSession session = request.getSession();
+        //用于存放session中的tephone和code
+        String telphone = "";
+        String smsCode = "";
+
+        //参数值
+        String code = recoverPasswordDto.getCode();
+        String password = recoverPasswordDto.getPassword();
+
+        if (session == null){
+            //session不存在
+            System.out.println("session不存在--------------------------------------");
+        }else {
+            //获取电话号码和验证码
+            telphone = (String) session.getAttribute("telphone");
+            smsCode = (String) session.getAttribute("code");
+
+            if (telphone == "" || telphone == null){
+                //未获取到手机号码
+                resultCode = 0;
+                resultMessage += "未获取到电话号码！";
+//                System.out.println("电话号码数据缺失----------------------------------");
+            }
+            if (smsCode == "" || smsCode == null){
+                //未获取到短信验证码
+                resultCode = 0;
+                resultMessage += "未获取到短信验证码！";
+//                System.out.println("短信验证码数据缺失----------------------------------");
+            }
+            if (code == "" || code == null){
+                //参数中未获取到短信验证码
+                resultCode = 0;
+                resultMessage += "未填写短信验证码！";
+//                System.out.println("参数短信验证码数据缺失----------------------------------");
+            }
+
+            if (resultCode == 0){
+                //存在数据缺失
+//                System.out.println("存在数据缺失----------------------------------");
+            }else {
+                //数据获取成功
+                if (!smsCode.equals(code)){
+                    //验证码不正确
+                    resultCode = 0;
+                    resultMessage += "验证码错误！";
+                } else {
+                    UserApiVo userApiVo = userService.getUserByTelphone(telphone);
+                    if (userApiVo == null){
+                        //查询用户失败
+                        resultCode = 0;
+                        resultMessage += "用户不存在！";
+                    }else {
+                        //获取用户信息
+                        User user = userApiVo.getUser();
+                        if (user == null){
+                            //未获取到用户信息
+                            resultCode = 0;
+                            resultMessage += "获取用户信息失败！";
+                        } else {
+                            //存在以telphone为电话号码的用户
+                            User temp = new User();
+                            temp.setUser_id(user.getUser_id());
+                            temp.setPassword(password);
+                            //修改用户密码
+                            UserApiVo userApiVo1 = userService.updateUserInformation(temp);
+                            if (userApiVo.getCode() == 0){
+                                //修改失败
+                                resultCode = 0;
+                                resultMessage += "找回密码失败！";
+                            } else {
+                                resultCode = 1;
+                                resultMessage = "找回密码成功！";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return ApiFormatUtil.apiFormat(resultCode,resultMessage,"");
+    }
 }

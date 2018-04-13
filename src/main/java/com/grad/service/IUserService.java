@@ -1,6 +1,7 @@
 package com.grad.service;
 
 import com.grad.vo.UserApiVo;
+import com.grad.vo.UserListVo;
 import org.springframework.transaction.annotation.Transactional;
 import com.grad.entity.User;
 
@@ -109,6 +110,15 @@ public interface IUserService {
      * @throws Exception
      */
     public UserApiVo updateHead_portrail(int user_id,String head_portrail) throws Exception;
+
+
+    /**
+     * 通过用户名进行模糊查询
+     * @param username  用户名
+     * @return
+     * @throws Exception
+     */
+    public UserListVo fuzzyQueryByUsername(String username) throws Exception;
 
 
 }

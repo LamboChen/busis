@@ -1,5 +1,8 @@
 package com.grad.dto;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 /**
  * @program: busis
  * @description: HistoryVo 主要用于接收参数使用，字符串化
@@ -7,6 +10,8 @@ package com.grad.dto;
  * @create: 2018-03-14 11:03
  **/
 
+@Scope(value = "prototype")
+@Component(value = "historyVo")
 public class HistoryVo {
 
     private String start_point;     //起点名称

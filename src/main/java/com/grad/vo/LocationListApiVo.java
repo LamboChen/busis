@@ -1,9 +1,10 @@
 package com.grad.vo;
 
 import com.grad.entity.Location;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @program: busis
@@ -11,13 +12,13 @@ import java.util.List;
  * @author: Mr.Chen
  * @create: 2018-03-22 18:53
  **/
-
+@Scope(value = "prototype")
 @Component(value = "locationListApiVo")
 public class LocationListApiVo {
 
     private int code;
     private String message;
-    private List<Location> locationList;
+    private ArrayList<Location> locationList;
 
     public LocationListApiVo(){
 
@@ -39,11 +40,11 @@ public class LocationListApiVo {
         this.message = message;
     }
 
-    public List<Location> getLocationList() {
+    public ArrayList<Location> getLocationList() {
         return locationList;
     }
 
-    public void setLocationList(List<Location> locationList) {
+    public void setLocationList(ArrayList<Location> locationList) {
         this.locationList = locationList;
     }
 }

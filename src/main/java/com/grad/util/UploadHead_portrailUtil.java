@@ -16,6 +16,7 @@ import java.util.Random;
  * @author: Mr.Chen
  * @create: 2018-03-13 23:25
  **/
+
 public class UploadHead_portrailUtil {
 
     public static String uploadHead_portrail(MultipartFile file, HttpServletRequest request){

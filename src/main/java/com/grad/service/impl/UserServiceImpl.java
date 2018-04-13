@@ -5,12 +5,14 @@ import com.grad.entity.User;
 import com.grad.service.IUserService;
 import com.grad.util.TelphoneCheckUtil;
 import com.grad.vo.UserApiVo;
+import com.grad.vo.UserListVo;
 import com.sun.prism.Texture;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 
 /**
  * @program: busis
@@ -28,6 +30,8 @@ public class UserServiceImpl implements IUserService {
 
     @Resource
     private UserApiVo userApiVo;
+
+    @Resource UserListVo userListVo;
 
     //无参构造
     public UserServiceImpl(){
@@ -336,21 +340,70 @@ public class UserServiceImpl implements IUserService {
         return userApiVo;
     }
 
+//    public UserApiVo updateHead_portrail(int user_id, String head_portrail) throws Exception {
+//        boolean result = true;
+//        User user = new User();
+//        userApiVo.setCode(0);
+//        userApiVo.setMessage("");
+//
+////        System.out.println("service----------------------------------");
+////        System.out.println(head_portrail);
+////        System.out.println("head_portrail.length:" + head_portrail.length());
+////        System.out.println("service----------------------------------");
+//
+//        //检验数据合法性
+//        if (head_portrail != "" && head_portrail != null && head_portrail.length() > 100){
+//            result = false;
+//            userApiVo.setMessage(userApiVo.getMessage() + "头像信息不合法！");
+//        }
+//
+//        //通过ID查询是否存在该用户
+//        User queryUser = userDao.findUserById(user_id);
+//        if(queryUser == null){
+//            //数据库中不存在此用户
+//            result = false;
+//            userApiVo.setMessage(userApiVo.getMessage() + "用户不存在！");
+//        } else {
+//            //填充数据（保护原有数据）
+//            user.setHead_portrail(head_portrail);
+//            user.setUser_id(user_id);
+//
+//            //修改头像路径
+//            if (user.getHead_portrail() != "" && user.getHead_portrail() != null){
+//                userDao.modifyHead_portrail(user);
+//            } else {
+//                userApiVo.setMessage("头像信息错误");
+//                result  = false;
+//            }
+//
+//            if (result){
+//                //执行到此步说明更改用户信息成功
+//                userApiVo.setMessage(userApiVo.getMessage() + "修改用户信息成功！");
+//                userApiVo.setCode(1);
+//                userApiVo.setUser(null);
+//            }
+//
+//
+//        }
+//        if (result == false){
+//            //存在不合法信息
+//            userApiVo.setCode(0);
+//            userApiVo.setUser(null);
+//        }
+//        return userApiVo;
+//    }
+
     public UserApiVo updateHead_portrail(int user_id, String head_portrail) throws Exception {
         boolean result = true;
         User user = new User();
         userApiVo.setCode(0);
         userApiVo.setMessage("");
-
-//        System.out.println("service----------------------------------");
-//        System.out.println(head_portrail);
-//        System.out.println("head_portrail.length:" + head_portrail.length());
-//        System.out.println("service----------------------------------");
+        final int len = 9999;
 
         //检验数据合法性
-        if (head_portrail != "" && head_portrail != null && head_portrail.length() > 100){
+        if (head_portrail != "" && head_portrail != null && head_portrail.length() > len){
             result = false;
-            userApiVo.setMessage(userApiVo.getMessage() + "头像信息不合法！");
+            userApiVo.setMessage(userApiVo.getMessage() + "头像图片过大！");
         }
 
         //通过ID查询是否存在该用户
@@ -387,5 +440,15 @@ public class UserServiceImpl implements IUserService {
             userApiVo.setUser(null);
         }
         return userApiVo;
+    }
+
+    @Override
+    public UserListVo fuzzyQueryByUsername(String username) throws Exception {
+
+        userListVo.setUserArrayList((ArrayList<User>) userDao.fuzzyQueryByUsername(username));
+        userListVo.setStatusCode(1);
+        userListVo.setMessage("查询成功！");
+
+        return userListVo;
     }
 }

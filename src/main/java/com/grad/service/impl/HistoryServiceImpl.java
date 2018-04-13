@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -115,7 +116,7 @@ public class HistoryServiceImpl implements IHistoryService {
 
     public HistoryListApiVo getHistoryByUser_id(int user_id) throws Exception {
 
-        List<History> historyList = historyDao.findHistoryByUser_id(user_id);
+        ArrayList<History> historyList = (ArrayList<History>) historyDao.findHistoryByUser_id(user_id);
 
         //格式化时间
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E");

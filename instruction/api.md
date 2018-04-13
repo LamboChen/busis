@@ -87,6 +87,7 @@
     gender(string)：用户性别【1：男 0：女 默认为女】
     birthday(string)：用户出生日期【yyyy-MM-dd】
     introduce(string)：用户介绍【0-200个字符】
+    code(String): 短信验证码（必填）
 
 3、返回（JSON格式字符串）
 
@@ -104,7 +105,7 @@
 4、示例
 
     http://120.77.170.124:8080/busis/user/register.do?username=Alice&password=123456&gender=0&birthday=1999-1-1
-        &introduce=good&telphone=13008142300
+        &introduce=good&telphone=13008142300&code=123456
 
 ##### 三、修改用户基本信息（姓名、密码、性别、出生日期、介绍、电话号码）
 
@@ -143,7 +144,7 @@
         &birthday=1999-1-31&introduce=I am a good girl&telphone=13008142301
 
 
-##### 四、修改用户头像(未进行测试)
+##### 四、修改用户头像(上传MultipartFile格式)【已屏蔽】
 
 1、接口URL
 
@@ -161,27 +162,25 @@
 4、示例
 
 
-##### 五、修改用户权限
+##### 四、修改用户头像(上传Base64格式)
 
 1、接口URL
 
-    http://120.77.170.124:8080/busis/user/modify/authority.do
+    http://120.77.170.124:8080/busis/user/modify/head_portrail.do
 
 2、参数说明
 
     user_id(int)：用户ID(必填)
-    modifyUser_id(int):欲修改权限用户的ID（必填）
-    modifyAuthority(char)：新权限（必填）
+    head_portrail(String):用户新头像图片文件（必填）
 
 3、返回（JSON字符串）
 
     空
-
+    
 4、示例
 
-    http://120.77.170.124:8080/busis/user/modify/authority.do?user_id=1&modifyUser_id=4&modifyAuthority=2
 
-##### 六、发送短信验证码
+##### 五、发送短信验证码
 
 1、接口URL
 
@@ -198,6 +197,25 @@
 4、示例
 
     http://120.77.170.124:8080/busis/user/sms.do?telphone=13008142306
+
+##### 六、找回密码
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/user/recover.do
+
+2、参数说明
+
+    code(string)：短信验证码(必填)
+
+3、返回（JSON字符串）
+
+    空
+
+4、示例
+
+    http://120.77.170.124:8080/busis/user/recover.do?code=123456
+
 
 
 #### 历史路线相关API
@@ -333,31 +351,6 @@
     http://120.77.170.124:8080/busis/location/query.do?user_id=1
 
 
-##### 四、统计某位置被多少用户收藏
-
-1、接口URL
-
-    http://120.77.170.124:8080/busis/location/total.do
-
-2、参数说明
-
-    location_name(string): 位置名称
-    location_longitude (string): 经度(必填)
-    location_latitude (string): 纬度(必填)
-    location_type (string): 位置类型
-    area (string): 区域
-   
-
-3、返回（JSON字符串）
-
-    result : 查询结果
-    
-4、示例
-
-    http://120.77.170.124:8080/busis/location/total.do?location_name=xhu&location_longitude=1.1&location_latitude=2.2
-     
-
-
 #### 路线收藏相关API
 
 ##### 一、添加收藏路线信息
@@ -434,6 +427,81 @@
 
     http://120.77.170.124:8080/busis/collection/query.do?user_id=1
     
+    
+#### 管理员相关API
+
+##### 一、通过用户名模糊查询用户信息
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/admin/user/query/username.do
+
+2、参数说明
+
+    username(string) : 用户名 (必填)
+    
+3、返回（JSON字符串）
+
+    user_id：用户ID
+    username：用户姓名
+    password：用户密码（鉴于安全，一般为空）
+    gender：用户性别（1：男 0：女）
+    birthday：用户出生日期(yyyy-MM-dd)
+    head_portrail：用户头像图片路径
+    introduce：用户介绍
+    telphone：用户电话号码
+    authority: 用户权限等级
+    
+4、示例
+
+    http://120.77.170.124:8080/busis/admin/user/query/username.do?username=Bo
+
+
+##### 二、修改用户权限
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/user/modify/authority.do
+
+2、参数说明
+
+    user_id(int)：用户ID(必填)
+    modifyUser_id(int):欲修改权限用户的ID（必填）
+    modifyAuthority(char)：新权限（必填）
+
+3、返回（JSON字符串）
+
+    空
+
+4、示例
+
+    http://120.77.170.124:8080/busis/user/modify/authority.do?user_id=1&modifyUser_id=4&modifyAuthority=2
+
+
+##### 三、统计某位置被多少用户收藏
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/location/total.do
+
+2、参数说明
+
+    location_name(string): 位置名称
+    location_longitude (string): 经度(必填)
+    location_latitude (string): 纬度(必填)
+    location_type (string): 位置类型
+    area (string): 区域
+   
+
+3、返回（JSON字符串）
+
+    result : 查询结果
+    
+4、示例
+
+    http://120.77.170.124:8080/busis/location/total.do?location_name=xhu&location_longitude=1.1&location_latitude=2.2
+     
+    
 ##### 四、统计某路线被多少用户收藏
 
 1、接口URL
@@ -460,9 +528,6 @@
 
     http://120.77.170.124:8080/busis/collection/total.do?start_point=西华大学&end_point=天府广场&start_longitude=1.1
         &start_latitude=2.2&end_longitude=3.3&end_latitude=4.4&area=四川成都&route_information=route-information test
-
-    
-
 
 
 

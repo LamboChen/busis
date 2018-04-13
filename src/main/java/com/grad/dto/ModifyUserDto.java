@@ -1,11 +1,17 @@
 package com.grad.dto;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 /**
  * @program: busis
  * @description: 修改用户基本信息所需要的Vo类
  * @author: Mr.Chen
  * @create: 2018-03-14 02:56
  **/
+
+@Scope(value = "prototype")
+@Component(value = "modifyUserDto")
 public class ModifyUserDto {
 
     private int user_id;            //用户ID

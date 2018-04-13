@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -128,7 +129,7 @@ public class CollectionServiceImpl implements ICollectionService {
     }
 
     public CollectionListApiVo findCollectionByUser_id(int user_id) throws Exception {
-        List<Collection> collectionList = collectionDao.findCollectionByUser_id(user_id);
+        ArrayList<Collection> collectionList = (ArrayList<Collection>) collectionDao.findCollectionByUser_id(user_id);
         collectionListApiVo.setCode(1);
         collectionListApiVo.setCollectionList(collectionList);
         collectionListApiVo.setMessage("查询成功");

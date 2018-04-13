@@ -1,5 +1,6 @@
 package com.grad.vo;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author: Mr.Chen
  * @create: 2018-03-14 12:00
  **/
-
+@Scope(value = "prototype")
 @Component(value = "startAndEndPointVo")
 public class StartAndEndPointVo {
 
