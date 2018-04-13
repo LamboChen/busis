@@ -1,7 +1,10 @@
 package com.grad.controller;
 
+import com.grad.entity.Link;
+import com.grad.service.ILinkService;
 import com.grad.service.IUserService;
 import com.grad.util.ApiFormatUtil;
+import com.grad.vo.LinkApiVo;
 import com.grad.vo.UserListVo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,9 @@ public class AdminController {
     @Resource
     private IUserService userService;
 
+    @Resource
+    private ILinkService linkService;
+
     public AdminController(){
 
     }
@@ -45,6 +51,51 @@ public class AdminController {
         return ApiFormatUtil.apiFormat(userListVo.getStatusCode(),userListVo.getMessage(),
                 userListVo.getUserArrayList());
     }
+
+
+    /**
+     * 添加链接
+     * @param link
+     *      name : 链接名称
+     *      url : 链接URL
+     *      type : 链接类型
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/link/add",method = {RequestMethod.POST,RequestMethod.GET},
+            produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String addLink(Link link) throws Exception{
+
+        LinkApiVo linkApiVo = linkService.addLink(link);
+
+        String resultJson = "";
+
+        return ApiFormatUtil.apiFormat(linkApiVo.getCode(),linkApiVo.getMessage(),resultJson);
+    }
+
+
+    /**
+     *  删除链接
+     * @param link
+     *      name : 链接名称
+     *      url : 链接URL
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/link/delete",method = {RequestMethod.POST,RequestMethod.GET},
+        produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String deleteLink(Link link) throws Exception{
+        int code = 1;
+        String message = "删除成功！";
+        String resultJson = "";
+
+        linkService.deleteLink(link);
+
+        return ApiFormatUtil.apiFormat(code,message,resultJson);
+    }
+
 
 
 

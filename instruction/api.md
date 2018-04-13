@@ -529,6 +529,48 @@
     http://120.77.170.124:8080/busis/collection/total.do?start_point=西华大学&end_point=天府广场&start_longitude=1.1
         &start_latitude=2.2&end_longitude=3.3&end_latitude=4.4&area=四川成都&route_information=route-information test
 
+##### 五、添加友情链接
 
+1、接口URL
+
+    http://120.77.170.124:8080/busis/admin/link/add.do
+
+2、参数说明
+
+    name(string): 链接名称（必填）
+    url (string): 链接URL(必填)
+  
+
+3、返回（JSON字符串）
+
+    无
+    
+4、示例
+
+    http://120.77.170.124:8080/busis/admin/link/add.do?name=百度一下&url=http://www.baidu.com
+    
+##### 六、删除链接
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/admin/link/delete.do
+
+2、参数说明
+
+    name(string): 链接名称（必填）
+    url (string): 链接URL(必填)
+   
+
+3、返回（JSON字符串）
+
+    无
+    
+4、示例
+
+    http://120.77.170.124:8080/busis/admin/link/delete.do?name=百度一下&url=http://www.baidu.com
+     
+ 
+     
+ 
 
 

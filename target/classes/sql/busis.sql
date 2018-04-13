@@ -40,3 +40,8 @@ CREATE TABLE tb_bus_location(buc_location_id INT PRIMARY KEY NOT NULL AUTO_INCRE
 #  创建公交信息表
 CREATE TABLE tb_bus(bus_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,bus_via_station VARCHAR(300) NOT NULL ,
   area VARCHAR(20) NOT NULL DEFAULT '四川成都');
+
+# 创建友情链接表
+create table tb_link(link_id int not null primary key auto_increment,name varchar(20) not null,
+  url varchar(50) not null,flag varchar(2) default 1,type varchar(20));
+

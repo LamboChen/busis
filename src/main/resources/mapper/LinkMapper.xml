@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grad.dao.ILinkDao">
+
+    <resultMap id="BaseResultMap" type="com.grad.entity.Link">
+        <id column="link_id" property="link_id" jdbcType="INTEGER" javaType="int"/>
+        <result column="name" property="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="url" property="url" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="flag" property="flag" jdbcType="VARCHAR" javaType="int"/>
+        <result column="type" property="type" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        link_id,name,url,flag,type
+    </sql>
+
+    <insert id="addLink" parameterType="com.grad.entity.Link">
+        <selectKey keyProperty="link_id" order="AFTER" resultType="int">
+            SELECT last_insert_id()
+        </selectKey>
+        INSERT into
+            tb_link(name,url,flag,type)
+        values(#{name},#{url},#{flag},#{type})
+    </insert>
+
+    <select id="findLinkByName" parameterType="String" resultType="com.grad.entity.Link">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            tb_link
+        WHERE
+            name=#{value}
+    </select>
+
+    <delete id="deleteLink" parameterType="com.grad.entity.Link">
+        DELETE FROM
+            tb_link
+        WHERE
+            name=#{name} AND url=#{url}
+    </delete>
+
+
+
+</mapper>
