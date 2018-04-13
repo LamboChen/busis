@@ -7,85 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cbd24bb5-c395-41e9-809c-7fb5c0449a50" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/grad/dto/RecoverPasswordDto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/grad/entity/MiaoDiReturn.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/grad/vo/UserListVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis.war" afterPath="$PROJECT_DIR$/target/busis.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/controller/AdminController.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/controller/AdminController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/controller/CollectionController.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/controller/CollectionController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/controller/HistoryController.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/controller/HistoryController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/controller/LocationController.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/controller/LocationController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/controller/UserController.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/controller/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/dto/HistoryVo.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/dto/HistoryVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/dto/ModifyUserDto.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/dto/ModifyUserDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/dto/UserBaseInformationDto.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/dto/UserBaseInformationDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/service/IUserService.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/service/IUserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/service/impl/CollectionServiceImpl.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/service/impl/CollectionServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/service/impl/HistoryServiceImpl.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/service/impl/HistoryServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/service/impl/LocationServiceImpl.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/service/impl/LocationServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/service/impl/UserServiceImpl.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/service/impl/UserServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/util/IndustrySMS.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/util/IndustrySMS.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/util/TelphoneCheckUtil.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/util/TelphoneCheckUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/util/UploadHead_portrailUtil.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/util/UploadHead_portrailUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/CollectionApiVo.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/CollectionApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/CollectionListApiVo.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/CollectionListApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/HistoryApiVo.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/HistoryApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/HistoryListApiVo.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/HistoryListApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/LocationApiVo.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/LocationApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/LocationListApiVo.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/LocationListApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/SmsVo.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/SmsVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/StartAndEndPointVo.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/StartAndEndPointVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/UserApiVo.class" afterPath="$PROJECT_DIR$/target/busis/WEB-INF/classes/com/grad/vo/UserApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/controller/AdminController.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/controller/AdminController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/controller/CollectionController.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/controller/CollectionController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/controller/HistoryController.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/controller/HistoryController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/controller/LocationController.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/controller/LocationController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/controller/UserController.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/controller/UserController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/dto/HistoryVo.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/dto/HistoryVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/dto/ModifyUserDto.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/dto/ModifyUserDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/dto/UserBaseInformationDto.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/dto/UserBaseInformationDto.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/service/IUserService.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/service/IUserService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/service/impl/CollectionServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/service/impl/CollectionServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/service/impl/HistoryServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/service/impl/HistoryServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/service/impl/LocationServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/service/impl/LocationServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/service/impl/UserServiceImpl.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/service/impl/UserServiceImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/util/IndustrySMS.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/util/IndustrySMS.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/util/TelphoneCheckUtil.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/util/TelphoneCheckUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/util/UploadHead_portrailUtil.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/util/UploadHead_portrailUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/vo/CollectionApiVo.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/vo/CollectionApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/vo/CollectionListApiVo.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/vo/CollectionListApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/vo/HistoryApiVo.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/vo/HistoryApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/vo/HistoryListApiVo.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/vo/HistoryListApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/vo/LocationApiVo.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/vo/LocationApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/vo/LocationListApiVo.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/vo/LocationListApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/vo/SmsVo.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/vo/SmsVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/vo/StartAndEndPointVo.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/vo/StartAndEndPointVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/grad/vo/UserApiVo.class" afterPath="$PROJECT_DIR$/target/classes/com/grad/vo/UserApiVo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/instruction/api.md" afterPath="$PROJECT_DIR$/instruction/api.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/controller/AdminController.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/controller/AdminController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/dto/HistoryVo.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/dto/HistoryVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/dto/ModifyUserDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/dto/ModifyUserDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/dto/UserBaseInformationDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/dto/UserBaseInformationDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/service/IUserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/service/IUserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/service/impl/CollectionServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/service/impl/CollectionServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/service/impl/HistoryServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/service/impl/HistoryServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/service/impl/LocationServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/service/impl/LocationServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/service/impl/UserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/service/impl/UserServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/util/IndustrySMS.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/util/IndustrySMS.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/util/TelphoneCheckUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/util/TelphoneCheckUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/util/UploadHead_portrailUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/util/UploadHead_portrailUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/util/sms/HttpUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/util/sms/HttpUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/vo/CollectionApiVo.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/vo/CollectionApiVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/vo/CollectionListApiVo.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/vo/CollectionListApiVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/vo/HistoryApiVo.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/vo/HistoryApiVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/vo/HistoryListApiVo.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/vo/HistoryListApiVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/vo/LocationApiVo.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/vo/LocationApiVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/vo/LocationListApiVo.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/vo/LocationListApiVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/vo/SmsVo.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/vo/SmsVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/vo/StartAndEndPointVo.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/vo/StartAndEndPointVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/vo/UserApiVo.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/vo/UserApiVo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/grad/util/ApiFormatUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/grad/util/ApiFormatUtil.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -134,21 +56,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/grad/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="62" column="17" lean-forward="true" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
+            <state relative-caret-position="260">
+              <caret line="92" column="51" lean-forward="false" selection-start-line="92" selection-start-column="28" selection-end-line="92" selection-end-column="51" />
               <folding>
                 <element signature="method#UserController#0;class#UserController#0" expanded="false" />
-                <element signature="docComment;method#loginByAccountAndPassword#0;class#UserController#0" expanded="false" />
-                <element signature="e#1650#1782#0" expanded="false" />
-                <element signature="method#loginByAccountAndPassword#0;class#UserController#0" expanded="false" />
                 <element signature="docComment;method#registerUser#0;class#UserController#0" expanded="false" />
                 <element signature="e#3921#4055#0" expanded="false" />
                 <element signature="method#registerUser#0;class#UserController#0" expanded="false" />
                 <element signature="docComment;method#modifyUserBaseInformation#0;class#UserController#0" expanded="false" />
                 <element signature="method#modifyUserBaseInformation#0;class#UserController#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApiFormatUtil.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/grad/util/ApiFormatUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="139">
+              <caret line="22" column="57" lean-forward="true" selection-start-line="22" selection-start-column="57" selection-end-line="22" selection-end-column="57" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -229,7 +160,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/CollectionMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/grad/controller/UploadController.java" />
@@ -280,6 +210,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/grad/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/instruction/api.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/grad/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/grad/util/ApiFormatUtil.java" />
       </list>
     </option>
   </component>
@@ -878,7 +809,7 @@
       <workItem from="1523472384190" duration="3069000" />
       <workItem from="1523500152128" duration="5955000" />
       <workItem from="1523516817393" duration="3592000" />
-      <workItem from="1523570284122" duration="15535000" />
+      <workItem from="1523570284122" duration="16788000" />
     </task>
     <servers />
   </component>
@@ -915,7 +846,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="262433000" />
+    <option name="totallyTimeSpent" value="263686000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1382" height="744" extended-state="6" />
@@ -944,7 +875,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34351146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28549618" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.09838998" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -970,14 +901,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring/spring-mybatis.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1012">
-          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="331">
@@ -1439,6 +1362,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/grad/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="92" column="51" lean-forward="false" selection-start-line="92" selection-start-column="28" selection-end-line="92" selection-end-column="51" />
+          <folding>
+            <element signature="method#UserController#0;class#UserController#0" expanded="false" />
+            <element signature="docComment;method#registerUser#0;class#UserController#0" expanded="false" />
+            <element signature="e#3921#4055#0" expanded="false" />
+            <element signature="method#registerUser#0;class#UserController#0" expanded="false" />
+            <element signature="docComment;method#modifyUserBaseInformation#0;class#UserController#0" expanded="false" />
+            <element signature="method#modifyUserBaseInformation#0;class#UserController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/instruction/api.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
@@ -1450,20 +1388,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/grad/controller/UserController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/grad/util/ApiFormatUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="62" column="17" lean-forward="true" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
+        <state relative-caret-position="139">
+          <caret line="22" column="57" lean-forward="true" selection-start-line="22" selection-start-column="57" selection-end-line="22" selection-end-column="57" />
           <folding>
-            <element signature="method#UserController#0;class#UserController#0" expanded="false" />
-            <element signature="docComment;method#loginByAccountAndPassword#0;class#UserController#0" expanded="false" />
-            <element signature="e#1650#1782#0" expanded="false" />
-            <element signature="method#loginByAccountAndPassword#0;class#UserController#0" expanded="false" />
-            <element signature="docComment;method#registerUser#0;class#UserController#0" expanded="false" />
-            <element signature="e#3921#4055#0" expanded="false" />
-            <element signature="method#registerUser#0;class#UserController#0" expanded="false" />
-            <element signature="docComment;method#modifyUserBaseInformation#0;class#UserController#0" expanded="false" />
-            <element signature="method#modifyUserBaseInformation#0;class#UserController#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

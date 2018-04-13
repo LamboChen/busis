@@ -1,5 +1,7 @@
 package com.grad.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.sf.json.JSONObject;
 
 /**
@@ -13,9 +15,16 @@ public class ApiFormatUtil {
     public static String apiFormat(int code,String message,Object object){
         JSONObject jsonObject = new JSONObject();
 
+        GsonBuilder gsonBuilder = new GsonBuilder();
+//        gsonBuilder.setPrettyPrinting();        //格式化（仅用于开发阶段）
+        gsonBuilder.setDateFormat("yyyy-MM-dd");
+        Gson gson = gsonBuilder.create();
+
+        String resultObject = gson.toJson(object).trim();
+
         jsonObject.put("code",code);
         jsonObject.put("message",message);
-        jsonObject.put("data",object);
+        jsonObject.put("data",resultObject);
 
         return jsonObject.toString();
     }
