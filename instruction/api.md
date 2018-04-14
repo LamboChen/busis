@@ -32,7 +32,7 @@
 
 ## 接口详细说明
 
-#### 用户相关API
+#### 普通用户API
 
 ##### 一、用户登录
 
@@ -428,7 +428,7 @@
     http://120.77.170.124:8080/busis/collection/query.do?user_id=1
     
     
-#### 管理员相关API
+### 管理员相关API
 
 ##### 一、通过用户名模糊查询用户信息
 
@@ -570,7 +570,167 @@
     http://120.77.170.124:8080/busis/admin/link/delete.do?name=百度一下&url=http://www.baidu.com
      
  
+ ##### 七、获取所有链接
+ 
+ 1、接口URL
+ 
+     http://120.77.170.124:8080/busis/admin/link/getall.do
+ 
+ 2、参数说明
+ 
+    无
+ 
+ 3、返回（JSON字符串）
+ 
+     link_id : 链接ID 
+     name : 链接名称
+     url : 链接URL
+     flag : 使用标识
+     type : 链接类型
      
+ 4、示例
+ 
+     http://120.77.170.124:8080/busis/admin/link/getall.do
+  
+     
+##### 七、获取所有链接
+   
+1、接口URL
+   
+    http://120.77.170.124:8080/busis/admin/link/getall.do
+   
+2、参数说明
+   
+    无
+   
+3、返回（JSON字符串）
+   
+    link_id : 链接ID 
+    name : 链接名称
+    url : 链接URL
+    flag : 使用标识
+    type : 链接类型
+       
+4、示例
+   
+    http://120.77.170.124:8080/busis/admin/link/getall.do
+ 
+##### 八、新增管理员
+ 
+1、接口URL
+ 
+     http://120.77.170.124:8080/busis/admin/su/add.do
+ 
+2、参数说明
+ 
+    su_id(int) : 超级管理员ID（必填）
+    username(string) ： 新增管理员用户名（必填）
+    telphone(string) : 新增管理员电话号码（必填）
+    password(string) : 新增管理员密码（默认为123456）
+    introduce(string) : 新增管理员介绍
+    （在此接口中未对电话号码进行短信验证）
+ 
+3、返回（JSON字符串）
+ 
+    user_id：用户注册成功返回用户ID
+    username：用户姓名
+    password：用户密码（鉴于安全，一般为空）
+    gender：用户性别【1：男 0：女 默认为女】
+    birthday：用户出生日期【yyyy-MM-dd】
+    head_portrail：用户头像图片文件路径
+    introduce：用户介绍
+    telphone：用户电话号码
+    authority: 用户权限等级(1:超级管理员 2：普通管理员 3：普通用户)
+    （注：若注册成功，返回值均为数据库中查询当前注册用户所得。若注册失败，返回为空）
+     
+4、示例
+ 
+     http://120.77.170.124:8080/busis/admin/su/add.do?su_id=1&username=Tom&telphone=13008142305
+     
+     
+##### 九、新增普通用户
+ 
+1、接口URL
+ 
+     http://120.77.170.124:8080/busis/admin/user/add.do
+ 
+2、参数说明
+ 
+    su_id(int) : 管理员ID（必填）
+    username(string) ： 新增用户用户名（必填）
+    telphone(string) : 新增用户电话号码（必填）
+    password(string) : 新增用户密码（默认为123456）
+    introduce(string) : 新增用户介绍
+    （在此接口中未对电话号码进行短信验证）
+ 
+3、返回（JSON字符串）
+ 
+    user_id：用户注册成功返回用户ID
+    username：用户姓名
+    password：用户密码（鉴于安全，一般为空）
+    gender：用户性别【1：男 0：女 默认为女】
+    birthday：用户出生日期【yyyy-MM-dd】
+    head_portrail：用户头像图片文件路径
+    introduce：用户介绍
+    telphone：用户电话号码
+    authority: 用户权限等级(1:超级管理员 2：普通管理员 3：普通用户)
+    （注：若注册成功，返回值均为数据库中查询当前注册用户所得。若注册失败，返回为空）
+     
+4、示例
+ 
+     http://120.77.170.124:8080/busis/admin/user/add.do?su_id=1&username=Tom&telphone=13008142305
+
+
+##### 十、删除管理员用户或普通用户
+   
+1、接口URL
+   
+    http://120.77.170.124:8080/busis/admin/user/delete.do
+   
+2、参数说明
+   
+    admin_id(int) : 管理员ID（必填）
+    user_id(int) : 待删除用户ID（必填） 
+    （此接口适用于超级管理员或普通管理员）
+   
+3、返回（JSON字符串）
+   
+    无
+       
+4、示例
+   
+    http://120.77.170.124:8080/busis/admin/user/delete.do?admin_id=1&user_id=2
+     
+##### 十一、获取所有用户
+ 
+1、接口URL
+ 
+     http://120.77.170.124:8080/busis/admin/user/getall.do
+ 
+2、参数说明
+ 
+    admin_id(int) : 管理员ID（必填）
+    authority(char) : 待获取用户的权限【1：超级管理员 2：普通管理员 3：普通用户】
+    
+3、返回（JSON字符串）
+ 
+    user_id：用户ID
+    username：用户姓名
+    password：用户密码（鉴于安全，一般为空）
+    gender：用户性别【1：男 0：女 默认为女】
+    birthday：用户出生日期【yyyy-MM-dd】
+    head_portrail：用户头像图片文件路径
+    introduce：用户介绍
+    telphone：用户电话号码
+    authority: 用户权限等级(1:超级管理员 2：普通管理员 3：普通用户)
+  
+     
+4、示例
+ 
+     http://120.77.170.124:8080/busis/admin/user/getall.do?admin_id=1&authority=2
+
+   
+
  
 
 

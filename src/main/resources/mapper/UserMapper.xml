@@ -26,7 +26,7 @@
         FROM
             tb_user
         WHERE
-            user_id=#{value}
+            user_id=#{user_id}
     </select>
 
     <select id="findUserByTelphone" parameterType="String" resultMap="BaseResultMap">
@@ -160,13 +160,30 @@
     </update>
 
 
-    <select id="fuzzyQueryByUsername" parameterType="java.lang.String" resultType="com.grad.entity.User">
+    <select id="fuzzyQueryByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT
             <include refid="Base_Column_List"/>
         FROM
             tb_user
         WHERE
             tb_user.username LIKE '%${value}%'
+    </select>
+
+
+    <delete id="deleteUserByUser_id" parameterType="int">
+        DELETE FROM
+            tb_user
+        WHERE
+            user_id=#{value}
+    </delete>
+
+    <select id="getUserByAuthority" parameterType="java.lang.Character" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            tb_user
+        WHERE
+            tb_user.authority=#{value}
     </select>
 
 </mapper>

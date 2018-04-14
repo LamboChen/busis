@@ -1,8 +1,6 @@
 package com.grad.vo;
 
 import com.grad.entity.User;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 /**
  * @program: busis
@@ -10,8 +8,8 @@ import org.springframework.stereotype.Component;
  * @author: Mr.Chen
  * @create: 2018-03-22 15:21
  **/
-@Scope(value = "prototype")
-@Component(value = "userApiVo")
+//@Scope(value = "prototype")
+//@Component(value = "userApiVo")
 public class UserApiVo {
 
     private User user;      //用户基本信息

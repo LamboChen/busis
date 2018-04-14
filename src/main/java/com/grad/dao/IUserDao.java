@@ -3,6 +3,7 @@ package com.grad.dao;
 import com.grad.entity.User;
 import org.springframework.context.annotation.Scope;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -145,5 +146,21 @@ public interface IUserDao {
      */
     public List<User> fuzzyQueryByUsername(String usernamePart) throws Exception;
 
+
+    /**
+     * 通过ID删除用户
+     * @param user_id
+     * @throws Exception
+     */
+    public void deleteUserByUser_id(int user_id) throws Exception;
+
+
+    /**
+     * 通过用户权限查询用户
+     * @param authority
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<User> getUserByAuthority(char authority) throws Exception;
 
 }

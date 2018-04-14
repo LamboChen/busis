@@ -26,8 +26,8 @@ public class LinkServiceTest {
     public void testAddLink() throws Exception{
 
         Link link = new Link();
-        link.setName("百度一下");
-        link.setUrl("http://www.baidu.com");
+        link.setName("Google");
+        link.setUrl("http://www.google.com");
 
         ILinkService linkService = (ILinkService) applicationContext.getBean("linkService");
 
@@ -35,5 +35,20 @@ public class LinkServiceTest {
 
         System.out.println("code:" + linkApiVo.getCode());
         System.out.println("message:" + linkApiVo.getMessage());
+    }
+
+    @Test
+    public void testGetAll() throws Exception{
+
+        ILinkService linkService = (ILinkService) applicationContext.getBean("linkService");
+        LinkApiVo linkApiVo = linkService.getAll();
+
+        System.out.println("code:" + linkApiVo.getCode());
+        System.out.println("message:" + linkApiVo.getMessage());
+
+        for (Link link : linkApiVo.getLinkArrayList()){
+            System.out.print("link name:" + link.getName());
+            System.out.println("  link url:" + link.getUrl());
+        }
     }
 }

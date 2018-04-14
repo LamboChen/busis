@@ -36,4 +36,12 @@ public interface ILinkService {
     public void deleteLink(Link link) throws Exception;
 
 
+    /**
+     * 获取所有链接
+     * @return
+     * @throws Exception
+     */
+    public LinkApiVo getAll() throws Exception;
+
+
 }

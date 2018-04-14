@@ -42,4 +42,12 @@ public interface ILinkDao {
     public void deleteLink(Link link) throws Exception;
 
 
+    /**
+     * 获取所有链接
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<Link> getAll() throws Exception;
+
+
 }

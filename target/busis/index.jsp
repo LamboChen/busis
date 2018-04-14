@@ -3,6 +3,6 @@
 <h2>Welcome to use this server!</h2>
 
 <hr/>
-<a href="html/photo-upload.html">Click me</a>
+To view the API document, <a href="https://github.com/chensanwa/busis/blob/master/instruction/api.md">Click me</a>
 </body>
 </html>

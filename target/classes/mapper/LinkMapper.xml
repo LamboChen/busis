@@ -34,12 +34,21 @@
             name=#{value}
     </select>
 
+    <select id="getAll" resultType="com.grad.entity.Link">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            tb_link
+    </select>
+
     <delete id="deleteLink" parameterType="com.grad.entity.Link">
         DELETE FROM
             tb_link
         WHERE
             name=#{name} AND url=#{url}
     </delete>
+
+
 
 
 

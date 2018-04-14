@@ -28,10 +28,6 @@ public class UserServiceImpl implements IUserService {
     @Resource
     private IUserDao userDao;
 
-    @Resource
-    private UserApiVo userApiVo;
-
-    @Resource UserListVo userListVo;
 
     //无参构造
     public UserServiceImpl(){
@@ -42,6 +38,8 @@ public class UserServiceImpl implements IUserService {
         User user = new User();
         int result = 0;         //返回结果
         int records = 0;        //数据库返回记录数
+
+        UserApiVo userApiVo = new UserApiVo();
 
         userApiVo.setMessage("");
         userApiVo.setUser(null);
@@ -84,6 +82,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     public UserApiVo getUserByTelphone(String telphone) throws Exception {
+        UserApiVo userApiVo = new UserApiVo();
+
         userApiVo.setCode(0);
         userApiVo.setMessage("");
         userApiVo.setUser(null);
@@ -106,6 +106,8 @@ public class UserServiceImpl implements IUserService {
 
     public UserApiVo getUserByUsernameAndPassword(String username, String password) throws Exception {
         User temp = new User();
+        UserApiVo userApiVo = new UserApiVo();
+
         userApiVo.setCode(0);
         userApiVo.setMessage("");
         userApiVo.setUser(null);
@@ -130,6 +132,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     public UserApiVo getUserById(int user_id) throws Exception {
+
+        UserApiVo userApiVo = new UserApiVo();
+
         User result = userDao.findUserById(user_id);
         if (result == null){
             //通过ID未查询到用户
@@ -149,6 +154,9 @@ public class UserServiceImpl implements IUserService {
         int recordsTelphone = 0;
         //验证数据库中是否存在利用该电话号码的用户
         recordsTelphone = userDao.queryTelphone(user.getTelphone());
+
+        UserApiVo userApiVo = new UserApiVo();
+
         if(recordsTelphone > 0){
             //电话号码不可用
             userApiVo.setCode(0);
@@ -166,6 +174,8 @@ public class UserServiceImpl implements IUserService {
     public UserApiVo updateUserInformation(User user) throws Exception {
         User tempUser = new User();
         boolean result = true;
+
+        UserApiVo userApiVo = new UserApiVo();
 
         //对结果进行初始化
         userApiVo.setMessage("");
@@ -292,6 +302,9 @@ public class UserServiceImpl implements IUserService {
         User modifyUser = new User();
         boolean result = false;
 
+        UserApiVo userApiVo = new UserApiVo();
+
+
         userApiVo.setMessage("");
         userApiVo.setUser(null);
 
@@ -343,6 +356,9 @@ public class UserServiceImpl implements IUserService {
 //    public UserApiVo updateHead_portrail(int user_id, String head_portrail) throws Exception {
 //        boolean result = true;
 //        User user = new User();
+//
+////        UserApiVo userApiVo = new UserApiVo();
+//
 //        userApiVo.setCode(0);
 //        userApiVo.setMessage("");
 //
@@ -396,6 +412,9 @@ public class UserServiceImpl implements IUserService {
     public UserApiVo updateHead_portrail(int user_id, String head_portrail) throws Exception {
         boolean result = true;
         User user = new User();
+
+        UserApiVo userApiVo = new UserApiVo();
+
         userApiVo.setCode(0);
         userApiVo.setMessage("");
         final int len = 9999;
@@ -444,6 +463,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserListVo fuzzyQueryByUsername(String username) throws Exception {
+        UserListVo userListVo = new UserListVo();
 
         userListVo.setUserArrayList((ArrayList<User>) userDao.fuzzyQueryByUsername(username));
         userListVo.setStatusCode(1);

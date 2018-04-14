@@ -79,4 +79,13 @@ public class LinkServiceImpl implements ILinkService {
     public void deleteLink(Link link) throws Exception {
         linkDao.deleteLink(link);
     }
+
+    @Override
+    public LinkApiVo getAll() throws Exception {
+        //初始化
+        linkApiVo.setCode(1);
+        linkApiVo.setMessage("查询成功！");
+        linkApiVo.setLinkArrayList(linkDao.getAll());
+        return linkApiVo;
+    }
 }
