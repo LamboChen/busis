@@ -54,7 +54,9 @@ public class LocationController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result",result);
 
-        return ApiFormatUtil.apiFormat(locationApiVo.getCode(),locationApiVo.getMessage(),jsonObject);
+        String resultJson = jsonObject.toString();
+
+        return ApiFormatUtil.apiFormat(locationApiVo.getCode(),locationApiVo.getMessage(),resultJson);
     }
 
 
@@ -92,7 +94,9 @@ public class LocationController {
 
         JSONArray result = JSONArray.fromObject(locationList.getLocationList());
 
-        return ApiFormatUtil.apiFormat(locationList.getCode(),locationList.getMessage(),result);
+        String resultJson = result.toString();
+
+        return ApiFormatUtil.apiFormat(locationList.getCode(),locationList.getMessage(),resultJson);
     }
 
 
@@ -120,7 +124,9 @@ public class LocationController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result",result);
 
-        return ApiFormatUtil.apiFormat(1,"查询成功！",jsonObject);
+        String resultJson = jsonObject.toString();
+
+        return ApiFormatUtil.apiFormat(1,"查询成功！",resultJson);
     }
 
 

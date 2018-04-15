@@ -58,11 +58,13 @@ public class AdminController {
             produces = "text/json;charset=UTF-8")
     @ResponseBody
     public String fuzzyQueryByUsername(String username) throws Exception{
-
         UserListVo userListVo = userService.fuzzyQueryByUsername(username);
-
+        String result = "";
+        if (userListVo != null){
+            result = SimpleUtil.userListToJson(userListVo.getUserArrayList());
+        }
         return ApiFormatUtil.apiFormat(userListVo.getStatusCode(),userListVo.getMessage(),
-                userListVo.getUserArrayList());
+                result);
     }
 
 

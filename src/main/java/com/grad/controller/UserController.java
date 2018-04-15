@@ -141,15 +141,16 @@ public class UserController {
         String smsCode = (String) session.getAttribute("code");
         String smsTelphone = (String) session.getAttribute("telphone");
 
+        String telphone = userBaseInformationDto.getTelphone().trim();
+
         if (userBaseInformationDto.getCode() == "" || userBaseInformationDto.getCode() == null){
             //验证失败
             check = false;
             userApiVo.setMessage(userApiVo.getMessage() + "未输入短信验证码！");
-        } else if (!userBaseInformationDto.getTelphone().equals(smsTelphone)){
+        } else if (!telphone.equals(smsTelphone.trim())){
             //验证失败
             check = false;
             userApiVo.setMessage(userApiVo.getMessage() + "手机号码错误！");
-
         } else if (!userBaseInformationDto.getCode().equals(smsCode)){
             //验证失败
             check = false;
@@ -164,7 +165,7 @@ public class UserController {
             check = false;
             userApiVo.setMessage(userApiVo.getMessage() + "用户名不能为空！");
         }
-        if(userBaseInformationDto.getTelphone() == "" || userBaseInformationDto.getTelphone() == null){
+        if(telphone == "" || telphone == null){
             check = false;
             userApiVo.setMessage(userApiVo.getMessage() + "电话号码不能为空！");
         }
@@ -187,8 +188,8 @@ public class UserController {
                 userApiVo.setMessage(userApiVo.getMessage() + "用户名应为2至10个字符！");
             }
             //验证手机号码是否合法
-            if (TelphoneCheckUtil.isPhoneLegal(userBaseInformationDto.getTelphone())){
-                tempUser.setTelphone(userBaseInformationDto.getTelphone());
+            if (TelphoneCheckUtil.isPhoneLegal(telphone)){
+                tempUser.setTelphone(telphone);
             } else {
                 check = false;
                 userApiVo.setMessage(userApiVo.getMessage() + "电话号码非法！");
@@ -250,7 +251,7 @@ public class UserController {
                 resultUser.setBirthday(GetDateByStringUtils.getDate(userBaseInformationDto.getBirthday()));
             }
             resultUser.setPassword(userBaseInformationDto.getPassword());
-            resultUser.setTelphone(userBaseInformationDto.getTelphone());
+            resultUser.setTelphone(telphone);
         } else {
             //进行注册操作
             userApiVo = userService.registerUser(tempUser);
@@ -445,7 +446,6 @@ public class UserController {
         String resultJson = "";
 
         return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
-
     }
 
     /**
@@ -462,7 +462,6 @@ public class UserController {
         User user = new User();
         boolean result = false;
         UserApiVo userApiVo = new UserApiVo();
-
         user.setUser_id(user_id);
         userApiVo = userService.updateUserAuthority(user,modifyUser_id,modifyAuthority);
         String resultJson = "";
@@ -557,11 +556,11 @@ public class UserController {
 
         //参数值
         String code = recoverPasswordDto.getCode();
-        String password = recoverPasswordDto.getPassword();
+        String password = recoverPasswordDto.getPassword().trim();
 
         if (session == null){
             //session不存在
-            System.out.println("session不存在--------------------------------------");
+//            System.out.println("session不存在--------------------------------------");
         }else {
             //获取电话号码和验证码
             telphone = (String) session.getAttribute("telphone");
@@ -591,7 +590,7 @@ public class UserController {
 //                System.out.println("存在数据缺失----------------------------------");
             }else {
                 //数据获取成功
-                if (!smsCode.equals(code)){
+                if (!smsCode.trim().equals(code.trim())){
                     //验证码不正确
                     resultCode = 0;
                     resultMessage += "验证码错误！";

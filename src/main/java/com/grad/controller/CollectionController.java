@@ -55,7 +55,9 @@ public class CollectionController {
             jsonObject.put("result",collectionApiVo.getCollection().getCollection_id());
         }
 
-        return ApiFormatUtil.apiFormat(collectionApiVo.getCode(),collectionApiVo.getMessage(),jsonObject);
+        String result = jsonObject.toString();
+
+        return ApiFormatUtil.apiFormat(collectionApiVo.getCode(),collectionApiVo.getMessage(),result);
     }
 
 
@@ -97,7 +99,9 @@ public class CollectionController {
 
         JSONArray result = JSONArray.fromObject(collectionListApiVo.getCollectionList());
 
-        return ApiFormatUtil.apiFormat(collectionListApiVo.getCode(),collectionListApiVo.getMessage(),result);
+        String resultJson = result.toString();
+
+        return ApiFormatUtil.apiFormat(collectionListApiVo.getCode(),collectionListApiVo.getMessage(),resultJson);
     }
 
 
@@ -125,7 +129,9 @@ public class CollectionController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result",result);
 
-        return ApiFormatUtil.apiFormat(1,"查询成功",jsonObject);
+        String resultJson = jsonObject.toString();
+
+        return ApiFormatUtil.apiFormat(1,"查询成功",resultJson);
     }
 
 

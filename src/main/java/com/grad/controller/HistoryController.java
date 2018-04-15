@@ -147,7 +147,9 @@ public class HistoryController {
 
         JSONArray result = JSONArray.fromObject(historyListApiVo.getHistoryList());
 
-        return ApiFormatUtil.apiFormat(historyListApiVo.getCode(),historyListApiVo.getMessage(),result);
+        String resultJson = result.toString();
+
+        return ApiFormatUtil.apiFormat(historyListApiVo.getCode(),historyListApiVo.getMessage(),resultJson);
     }
 
 

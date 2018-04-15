@@ -1,6 +1,11 @@
 package com.grad.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.grad.entity.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @program: busis
@@ -44,4 +49,35 @@ public class SimpleUtil {
 
         return user;
     }
+
+
+    public static String userToJson(User user) throws Exception{
+        GsonBuilder gsonBuilder = new GsonBuilder();
+//        gsonBuilder.setPrettyPrinting();        //格式化（仅用于开发阶段）
+        gsonBuilder.setDateFormat("yyyy-MM-dd");
+        Gson gson = gsonBuilder.create();
+
+        user = SimpleUtil.hideSensitiveInformation(user);
+
+        String resultJson = gson.toJson(user);
+        return resultJson;
+    }
+
+
+    public static String userListToJson(List<User> userList) throws Exception{
+        List<String> stringList = new ArrayList<>();
+
+        for (User user : userList){
+            String temp = userToJson(user);
+            stringList.add(temp);
+        }
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+
+        String result = gson.toJson(stringList);
+        return result;
+    }
+
+
 }
