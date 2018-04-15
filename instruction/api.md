@@ -207,6 +207,7 @@
 2、参数说明
 
     code(string)：短信验证码(必填)
+    password(string) : 新密码（必填）
 
 3、返回（JSON字符串）
 

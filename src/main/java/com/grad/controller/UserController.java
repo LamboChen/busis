@@ -141,23 +141,40 @@ public class UserController {
         String smsCode = (String) session.getAttribute("code");
         String smsTelphone = (String) session.getAttribute("telphone");
 
-        String telphone = userBaseInformationDto.getTelphone().trim();
+        if (smsCode != null || smsCode != ""){
+            smsCode = smsCode.trim();
+        }
+        if (smsTelphone != null || smsTelphone != ""){
+            smsTelphone = smsTelphone.trim();
+        }
 
-        if (userBaseInformationDto.getCode() == "" || userBaseInformationDto.getCode() == null){
-            //验证失败
+
+        String telphone = userBaseInformationDto.getTelphone();
+
+        if (telphone == null || telphone == ""){
             check = false;
-            userApiVo.setMessage(userApiVo.getMessage() + "未输入短信验证码！");
-        } else if (!telphone.equals(smsTelphone.trim())){
-            //验证失败
-            check = false;
-            userApiVo.setMessage(userApiVo.getMessage() + "手机号码错误！");
-        } else if (!userBaseInformationDto.getCode().equals(smsCode)){
-            //验证失败
-            check = false;
-            userApiVo.setMessage(userApiVo.getMessage() + "短信验证码错误！");
+            userApiVo.setMessage(userApiVo.getMessage() + "电话号码不能为空！");
         } else {
-            //验证成功
+            telphone = telphone.trim();
+        }
 
+        if (check){
+            if (userBaseInformationDto.getCode() == "" || userBaseInformationDto.getCode() == null){
+                //验证失败
+                check = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "未输入短信验证码！");
+            } else if (!telphone.equals(smsTelphone)){
+                //验证失败
+                check = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "手机号码错误！");
+            } else if (!userBaseInformationDto.getCode().equals(smsCode)){
+                //验证失败
+                check = false;
+                userApiVo.setMessage(userApiVo.getMessage() + "短信验证码错误！");
+            } else {
+                //验证成功
+
+            }
         }
 
         //必填项检查
