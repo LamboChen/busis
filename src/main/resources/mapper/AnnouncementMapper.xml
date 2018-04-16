@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grad.dao.AnnouncementDao">
+
+    <resultMap id="BaseResultMap" type="com.grad.entity.Announcement">
+        <id column="announce_id" property="announce_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <result column="title" property="title" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="content" property="content" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="delete_or" property="delete_or" jdbcType="VARCHAR" javaType="java.lang.Character"/>
+        <result column="time" property="time" jdbcType="DATE" javaType="java.util.Date"/>
+        <result column="user_id" property="user_id" jdbcType="VARCHAR" javaType="java.lang.Integer"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        announce_id,title,content,time,user_id
+    </sql>
+
+    <insert id="insertAnnouncement" parameterType="com.grad.entity.Announcement">
+        <selectKey keyProperty="announce_id" order="AFTER" resultType="int">
+            SELECT last_insert_id()
+        </selectKey>
+        INSERT into
+            tb_announcement(title,content,time,user_id)
+        values(#{title},#{content},#{time},#{user_id})
+    </insert>
+
+    <update id="deleteAnnouncement" parameterType="com.grad.vo.AnnounceDeleteVo">
+        UPDATE
+            tb_announcement
+        SET
+            delete_or = #{delete_or}
+        WHERE
+            announce_id = #{announce_id}
+    </update>
+
+    <select id="getAnnouncement" parameterType="java.lang.Character" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            tb_announcement
+        WHERE
+            delete_or = #{delete_or}
+    </select>
+
+
+
+</mapper>

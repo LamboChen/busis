@@ -45,3 +45,7 @@ CREATE TABLE tb_bus(bus_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,bus_via_stati
 create table tb_link(link_id int not null primary key auto_increment,name varchar(20) not null,
   url varchar(50) not null,flag varchar(2) default 1,type varchar(20));
 
+# 创建公告表
+create table tb_announcement(announce_id int primary key not null auto_increment,
+  title varchar(50) not null,content varchar(500) not null,delete_or varchar(2) default '0',
+  time date,user_id int);

@@ -2,12 +2,17 @@ package com.grad.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.grad.dto.ModifyPasswordDto;
 import com.grad.dto.ModifyUserDto;
 import com.grad.dto.RecoverPasswordDto;
 import com.grad.dto.UserBaseInformationDto;
+import com.grad.entity.Announcement;
+import com.grad.entity.AnnouncementByUser;
 import com.grad.entity.User;
+import com.grad.service.IAnnouncementService;
 import com.grad.service.IUserService;
 import com.grad.util.*;
+import com.grad.vo.AnnouncementListVo;
 import com.grad.vo.SmsVo;
 import com.grad.vo.UserApiVo;
 import org.springframework.stereotype.Controller;
@@ -15,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 /**
  * @program: busis
@@ -34,6 +41,9 @@ public class UserController {
 
     @Resource
     private IUserService userService;
+
+    @Resource
+    private IAnnouncementService announcementService;
 
 
     //无参构造
@@ -141,10 +151,10 @@ public class UserController {
         String smsCode = (String) session.getAttribute("code");
         String smsTelphone = (String) session.getAttribute("telphone");
 
-        if (smsCode != null || smsCode != ""){
+        if (smsCode != null && smsCode != ""){
             smsCode = smsCode.trim();
         }
-        if (smsTelphone != null || smsTelphone != ""){
+        if (smsTelphone != null && smsTelphone != ""){
             smsTelphone = smsTelphone.trim();
         }
 
@@ -359,7 +369,7 @@ public class UserController {
             if (modifyUserDto.getIntroduce() != null && modifyUserDto.getIntroduce() != ""){
                 user.setIntroduce(modifyUserDto.getIntroduce());
             }
-            if(modifyUserDto.getTelphone() != null && modifyUserDto.getIntroduce() != ""){
+            if(modifyUserDto.getTelphone() != null && modifyUserDto.getTelphone() != ""){
                 user.setTelphone(modifyUserDto.getTelphone());
             }
 
@@ -383,54 +393,126 @@ public class UserController {
 
 
     /**
+     * 修改密码
+     * @param modifyPasswordDto
+     *      user_id : 用户ID
+     *      old_password : 原始密码
+     *      new_password : 新密码
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/modify/password",method = {RequestMethod.POST,RequestMethod.GET},
+            produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String modifyPassword(ModifyPasswordDto modifyPasswordDto) throws Exception{
+        //初始化返回
+        int code = 1;
+        String message = "";
+
+        if (modifyPasswordDto == null){
+            code = 0;
+            message += "未接收到参数！";
+        } else {
+            int user_id = modifyPasswordDto.getUser_id();
+            String old_password = modifyPasswordDto.getOld_password();
+            String new_password = modifyPasswordDto.getNew_password();
+
+            if (old_password == null || old_password == ""){
+                code = 0;
+                message += "原始密码不能为空！";
+            } else {
+                old_password = old_password.trim();
+            }
+            if (new_password == null || new_password == ""){
+                code = 0;
+                message += "新密码不能为空！";
+            } else {
+                new_password = new_password.trim();
+            }
+
+            if (code != 0){
+                //输入参数正确
+                UserApiVo userApiVo = userService.getUserById(user_id);
+                if (userApiVo == null){
+                    code = 0;
+                    message += "不存在此用户！";
+                } else {
+                    User user = userApiVo.getUser();
+                    if (user == null){
+                        code = 0;
+                        message += "不存在此用户！";
+                    } else {
+                        if (!old_password.equals(user.getPassword())){
+                            //用户密码错误
+                            code = 0;
+                            message += "用户密码错误！";
+                        } else {
+                            User modifyUser = new User();
+                            modifyUser.setUser_id(user_id);
+                            modifyUser.setPassword(new_password);
+
+                            UserApiVo modifyResult = userService.updateUserInformation(modifyUser);
+                            code = modifyResult.getCode();
+                            message = modifyResult.getMessage();
+                        }
+                    }
+                }
+            }
+        }
+
+        return ApiFormatUtil.apiFormat(code,message,"");
+    }
+
+
+    /**
      * 修改用户头像图片(用户上传图片的形式)
      * @param file   用户新头像图片文件
      * @param request
      * @param user_id   用户ID
      * @return  修改结果
      */
-//    @RequestMapping(value = "/modify/head_portrail",method = {RequestMethod.POST,RequestMethod.GET},
-//            produces = "text/json;charset=UTF-8")
-//    @ResponseBody
-//    public String modifyHead_portrail(@RequestParam(value = "file",required = false)MultipartFile file,
-//                                      HttpServletRequest request, int user_id) throws Exception {
-//
-//        //未进行测试
-//
-//        User user = new User();
-//        boolean result = false;
-//        UserApiVo userApiVo = new UserApiVo();
-//
-//        userApiVo.setMessage("说明：");
-//        userApiVo.setUser(null);
-//
-//        //将图片存储在服务器文件夹中，并返回文件路径
-//        String head_portrailResult = UploadHead_portrailUtil.uploadHead_portrail(file,request);
-//
-//        //封装数据
-//        user.setUser_id(user_id);
-//        user.setHead_portrail(head_portrailResult.toString().trim());
-//
-////        System.out.println("-------------------------------");
-////        System.out.println(head_portrailResult.toString().trim());
-////        System.out.println("length:" + head_portrailResult.length());
-////        System.out.println(user.getHead_portrail());
-////        System.out.println("-------------------------------");
-//
-//        //进行数据库更新
-//        userApiVo = userService.updateHead_portrail(user.getUser_id(),user.getHead_portrail());
-//
-//        String resultJson = "";
-//
-////        if(userApiVo.getCode() == 0){
-////            //修改头像失败
-////            resultJson = "";
-////        } else{
-////            resultJson = userService.getUserById(user.getUser_id()).getUser().getHead_portrail().trim();
-////        }
-//
-//        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
-//    }
+    @RequestMapping(value = "/modify/head_portrail/file",method = {RequestMethod.POST,RequestMethod.GET},
+            produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String modifyHead_portrail(@RequestParam(value = "file",required = false)MultipartFile file,
+                                      HttpServletRequest request, int user_id) throws Exception {
+
+        //未进行测试
+
+        User user = new User();
+        boolean result = false;
+        UserApiVo userApiVo = new UserApiVo();
+
+        userApiVo.setMessage("说明：");
+        userApiVo.setUser(null);
+
+        //将图片存储在服务器文件夹中，并返回文件路径
+        String head_portrailResult = UploadHead_portrailUtil.uploadHead_portrail(file,request);
+
+        //封装数据
+        user.setUser_id(user_id);
+        user.setHead_portrail(head_portrailResult.toString().trim());
+
+//        System.out.println("-------------------------------");
+//        System.out.println(head_portrailResult.toString().trim());
+//        System.out.println("length:" + head_portrailResult.length());
+//        System.out.println(user.getHead_portrail());
+//        System.out.println("-------------------------------");
+
+        //进行数据库更新
+        userApiVo = userService.updateHead_portrailFile(user.getUser_id(),user.getHead_portrail());
+
+        String resultJson = "";
+
+//        if(userApiVo.getCode() == 0){
+//            //修改头像失败
+//            resultJson = "";
+//        } else{
+//            resultJson = userService.getUserById(user.getUser_id()).getUser().getHead_portrail().trim();
+//        }
+
+        return ApiFormatUtil.apiFormat(userApiVo.getCode(),userApiVo.getMessage(),resultJson);
+    }
 
 
     /**
@@ -441,7 +523,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/modify/head_portrail",method = {RequestMethod.POST,RequestMethod.GET},
+    @RequestMapping(value = "/modify/head_portrail/base64",method = {RequestMethod.POST,RequestMethod.GET},
             produces = "text/json;charset=UTF-8")
     @ResponseBody
     public String modifyHead_portrail(int user_id,String head_portrail,HttpServletRequest request) throws Exception{
@@ -458,7 +540,7 @@ public class UserController {
         user.setHead_portrail(head_portrail);
 
         //进行数据库更新
-        userApiVo = userService.updateHead_portrail(user.getUser_id(),user.getHead_portrail());
+        userApiVo = userService.updateHead_portrailBase64(user.getUser_id(),user.getHead_portrail());
 
         String resultJson = "";
 
@@ -534,6 +616,14 @@ public class UserController {
                 session.setAttribute("code",smsVo.getVerificationCode());
                 session.setAttribute("telphone",telphone);
                 session.setMaxInactiveInterval(2*60 + 5);
+
+//                Cookie cookieCode = new Cookie("code",smsVo.getVerificationCode());
+//                Cookie cookieTelphone = new Cookie("telphone",telphone);
+//                cookieCode.setMaxAge(3*60);
+//                cookieTelphone.setMaxAge(3*60);
+//
+//                response.addCookie(cookieCode);
+//                response.addCookie(cookieTelphone);
             } else {
                 result  = "电话号码无效！";
                 resultCode = 0;
@@ -578,6 +668,8 @@ public class UserController {
         if (session == null){
             //session不存在
 //            System.out.println("session不存在--------------------------------------");
+            resultCode = 0;
+            resultMessage += "验证码已过期！";
         }else {
             //获取电话号码和验证码
             telphone = (String) session.getAttribute("telphone");
@@ -634,7 +726,7 @@ public class UserController {
                             if (userApiVo.getCode() == 0){
                                 //修改失败
                                 resultCode = 0;
-                                resultMessage += "找回密码失败！";
+                                resultMessage += userApiVo.getMessage() + "找回密码失败！";
                             } else {
                                 resultCode = 1;
                                 resultMessage = "找回密码成功！";
@@ -646,4 +738,40 @@ public class UserController {
         }
         return ApiFormatUtil.apiFormat(resultCode,resultMessage,"");
     }
+
+
+    /**
+     * 获取公告信息列表
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/announce",method = {RequestMethod.POST,RequestMethod.GET},
+            produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String getAnnouncement() throws Exception{
+        char delete_or = '0';
+
+        AnnouncementListVo announcementListVo = announcementService.getAnnouncement(delete_or);
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+
+        String result = "";
+        if (announcementListVo.getAnnouncementArrayList() != null){
+            ArrayList<AnnouncementByUser> announcementByUserArrayList = new ArrayList<>();
+            ArrayList<Announcement> announcementArrayList = announcementListVo.getAnnouncementArrayList();
+            for (Announcement announcement : announcementArrayList){
+                AnnouncementByUser announcementByUser = new AnnouncementByUser();
+                announcementByUser.setTitle(announcement.getTitle());
+                announcementByUser.setContent(announcement.getContent());
+                announcementByUserArrayList.add(announcementByUser);
+            }
+            result = gson.toJson(announcementByUserArrayList);
+        }
+
+        return ApiFormatUtil.apiFormat(announcementListVo.getCode(),announcementListVo.getMessage(),result);
+    }
+
+
+
 }

@@ -3,15 +3,19 @@ package com.grad.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.grad.dto.AdminGetUserDto;
+import com.grad.dto.AnnouncementDto;
 import com.grad.dto.DeleteUserDto;
 import com.grad.dto.SuAdminApiDto;
+import com.grad.entity.Announcement;
 import com.grad.entity.Link;
 import com.grad.entity.User;
 import com.grad.service.IAdminService;
+import com.grad.service.IAnnouncementService;
 import com.grad.service.ILinkService;
 import com.grad.service.IUserService;
 import com.grad.util.ApiFormatUtil;
 import com.grad.util.SimpleUtil;
+import com.grad.vo.AnnouncementListVo;
 import com.grad.vo.LinkApiVo;
 import com.grad.vo.UserApiVo;
 import com.grad.vo.UserListVo;
@@ -42,6 +46,9 @@ public class AdminController {
 
     @Resource
     private IAdminService adminService;
+
+    @Resource
+    private IAnnouncementService announcementService;
 
     public AdminController(){
 
@@ -486,6 +493,96 @@ public class AdminController {
         }
 
         return ApiFormatUtil.apiFormat(resultCode,resultMessage,resultObject);
+    }
+
+    /**
+     * 获取公告信息列表
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/announce/get",method = {RequestMethod.POST,RequestMethod.GET},
+            produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String getAnnouncement() throws Exception{
+        char delete_or = '0';
+
+        AnnouncementListVo announcementListVo = announcementService.getAnnouncement(delete_or);
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+
+        String result = "";
+        if (announcementListVo.getAnnouncementArrayList() != null){
+            result = gson.toJson(announcementListVo.getAnnouncementArrayList());
+        }
+        return ApiFormatUtil.apiFormat(announcementListVo.getCode(),announcementListVo.getMessage(),result);
+    }
+
+
+    /**
+     * 添加公告
+     * @param announcementDto
+     *      title : 公告标题
+     *      content ： 公告内容
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/announce/add",method = {RequestMethod.POST,RequestMethod.GET},
+            produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String addAnnouncement(AnnouncementDto announcementDto) throws Exception{
+        int code = 1;
+        String message = "";
+
+        //校验参数接收情况
+        if (announcementDto == null){
+            code = 0;
+            message += "传入参数为空！";
+        } else {
+            //对参数进行校验并处理前后空格
+            String title = announcementDto.getTitle();
+            String content = announcementDto.getContent();
+
+            if (title == null || title == ""){
+                code = 0;
+                message += "标题不能为空！";
+            } else {
+                title = title.trim();
+            }
+
+            if (content == null || content == ""){
+                code = 0;
+                message += "内容不能为空！";
+            } else {
+                content = content.trim();
+            }
+
+            if (code != 0){
+                Announcement announcement = new Announcement();
+                announcement.setTitle(title);
+                announcement.setContent(content);
+                announcement.setUser_id(announcementDto.getUser_id());
+                AnnouncementListVo announcementListVo = announcementService.insertAnnouncement(announcement);
+                code = announcementListVo.getCode();
+                message = announcementListVo.getMessage();
+            }
+        }
+        return ApiFormatUtil.apiFormat(code,message,"");
+    }
+
+
+    /**
+     * 删除公告
+     * @param announcement_id 公告ID
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/announce/delete",method = {RequestMethod.POST,RequestMethod.GET},
+            produces = "text/json;charset=UTF-8")
+    @ResponseBody
+    public String deleteAnnouncement(int announcement_id) throws Exception{
+        AnnouncementListVo announcementListVo = announcementService.deleteAnnouncement(announcement_id);
+        return ApiFormatUtil.apiFormat(announcementListVo.getCode(),announcementListVo.getMessage(),"");
     }
 
 

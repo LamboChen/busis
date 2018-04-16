@@ -109,7 +109,16 @@ public interface IUserService {
      * @return 修改结果
      * @throws Exception
      */
-    public UserApiVo updateHead_portrail(int user_id,String head_portrail) throws Exception;
+    public UserApiVo updateHead_portrailBase64(int user_id,String head_portrail) throws Exception;
+
+    /**
+     * 修改用户头像路径
+     * @param user_id 用户ID
+     * @param head_portrail 用户头像图片路径
+     * @return 修改结果
+     * @throws Exception
+     */
+    public UserApiVo updateHead_portrailFile(int user_id,String head_portrail) throws Exception;
 
 
     /**

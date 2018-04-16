@@ -353,63 +353,63 @@ public class UserServiceImpl implements IUserService {
         return userApiVo;
     }
 
-//    public UserApiVo updateHead_portrail(int user_id, String head_portrail) throws Exception {
-//        boolean result = true;
-//        User user = new User();
-//
-////        UserApiVo userApiVo = new UserApiVo();
-//
-//        userApiVo.setCode(0);
-//        userApiVo.setMessage("");
-//
-////        System.out.println("service----------------------------------");
-////        System.out.println(head_portrail);
-////        System.out.println("head_portrail.length:" + head_portrail.length());
-////        System.out.println("service----------------------------------");
-//
-//        //检验数据合法性
-//        if (head_portrail != "" && head_portrail != null && head_portrail.length() > 100){
-//            result = false;
-//            userApiVo.setMessage(userApiVo.getMessage() + "头像信息不合法！");
-//        }
-//
-//        //通过ID查询是否存在该用户
-//        User queryUser = userDao.findUserById(user_id);
-//        if(queryUser == null){
-//            //数据库中不存在此用户
-//            result = false;
-//            userApiVo.setMessage(userApiVo.getMessage() + "用户不存在！");
-//        } else {
-//            //填充数据（保护原有数据）
-//            user.setHead_portrail(head_portrail);
-//            user.setUser_id(user_id);
-//
-//            //修改头像路径
-//            if (user.getHead_portrail() != "" && user.getHead_portrail() != null){
-//                userDao.modifyHead_portrail(user);
-//            } else {
-//                userApiVo.setMessage("头像信息错误");
-//                result  = false;
-//            }
-//
-//            if (result){
-//                //执行到此步说明更改用户信息成功
-//                userApiVo.setMessage(userApiVo.getMessage() + "修改用户信息成功！");
-//                userApiVo.setCode(1);
-//                userApiVo.setUser(null);
-//            }
-//
-//
-//        }
-//        if (result == false){
-//            //存在不合法信息
-//            userApiVo.setCode(0);
-//            userApiVo.setUser(null);
-//        }
-//        return userApiVo;
-//    }
+    public UserApiVo updateHead_portrailFile(int user_id, String head_portrail) throws Exception {
+        boolean result = true;
+        User user = new User();
 
-    public UserApiVo updateHead_portrail(int user_id, String head_portrail) throws Exception {
+        UserApiVo userApiVo = new UserApiVo();
+
+        userApiVo.setCode(0);
+        userApiVo.setMessage("");
+
+//        System.out.println("service----------------------------------");
+//        System.out.println(head_portrail);
+//        System.out.println("head_portrail.length:" + head_portrail.length());
+//        System.out.println("service----------------------------------");
+
+        //检验数据合法性
+        if (head_portrail != "" && head_portrail != null && head_portrail.length() > 1000){
+            result = false;
+            userApiVo.setMessage(userApiVo.getMessage() + "头像信息不合法！");
+        }
+
+        //通过ID查询是否存在该用户
+        User queryUser = userDao.findUserById(user_id);
+        if(queryUser == null){
+            //数据库中不存在此用户
+            result = false;
+            userApiVo.setMessage(userApiVo.getMessage() + "用户不存在！");
+        } else {
+            //填充数据（保护原有数据）
+            user.setHead_portrail(head_portrail);
+            user.setUser_id(user_id);
+
+            //修改头像路径
+            if (user.getHead_portrail() != "" && user.getHead_portrail() != null){
+                userDao.modifyHead_portrail(user);
+            } else {
+                userApiVo.setMessage("头像信息错误");
+                result  = false;
+            }
+
+            if (result){
+                //执行到此步说明更改用户信息成功
+                userApiVo.setMessage(userApiVo.getMessage() + "修改用户信息成功！");
+                userApiVo.setCode(1);
+                userApiVo.setUser(null);
+            }
+
+
+        }
+        if (result == false){
+            //存在不合法信息
+            userApiVo.setCode(0);
+            userApiVo.setUser(null);
+        }
+        return userApiVo;
+    }
+
+    public UserApiVo updateHead_portrailBase64(int user_id, String head_portrail) throws Exception {
         boolean result = true;
         User user = new User();
 

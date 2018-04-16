@@ -52,7 +52,7 @@
     password：用户密码（鉴于安全，一般为空）
     gender：用户性别（1：男 0：女）
     birthday：用户出生日期
-    head_portrail：用户头像图片路径
+    head_portrail：用户头像图片(base64格式)
     introduce：用户介绍
     telphone：用户电话号码
     authority: 用户权限等级
@@ -144,11 +144,11 @@
         &birthday=1999-1-31&introduce=I am a good girl&telphone=13008142301
 
 
-##### 四、修改用户头像(上传MultipartFile格式)【已屏蔽】
+##### 四、修改用户头像(上传MultipartFile格式)
 
 1、接口URL
 
-    http://120.77.170.124:8080/busis/user/modify/head_portrail.do
+    http://120.77.170.124:8080/busis/user/modify/head_portrail/file.do
 
 2、参数说明
 
@@ -166,7 +166,7 @@
 
 1、接口URL
 
-    http://120.77.170.124:8080/busis/user/modify/head_portrail.do
+    http://120.77.170.124:8080/busis/user/modify/head_portrail/base64.do
 
 2、参数说明
 
@@ -216,6 +216,46 @@
 4、示例
 
     http://120.77.170.124:8080/busis/user/recover.do?code=123456
+
+##### 七、获取公告信息列表
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/user/announce.do
+
+2、参数说明
+
+    无
+
+3、返回（JSON字符串）
+
+    title : 公告标题
+    content ： 公告内容
+
+4、示例
+
+    http://120.77.170.124:8080/busis/user/announce.do
+
+
+##### 八、修改密码
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/user/modify/password.do
+
+2、参数说明
+
+    user_id(int)：用户ID(必填)
+    old_password(string) : 用户原始密码（必填）
+    new_password(string) : 用户新密码（必填）
+
+3、返回（JSON字符串）
+
+    空
+
+4、示例
+
+    http://120.77.170.124:8080/busis/user/modify/password.do?user_id=1&old_password=123456&new_password=123123
 
 
 
@@ -732,6 +772,68 @@
 
    
 
+##### 十二、获取公告信息列表
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/admin/announce/get.do
+
+2、参数说明
+
+    无
+
+3、返回（JSON字符串）
+
+    announcement_id : 公告ID
+    title : 公告标题
+    content ： 公告内容
+    delete_or : 是否删除（0：未删除 1：已删除）
+    time : 发布时间
+    user_id : 发布者ID
+
+4、示例
+
+    http://120.77.170.124:8080/busis/admin/announce/get.do
+
+
+##### 十三、添加公告
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/admin/announce/add.do
+
+2、参数说明
+
+    title : 公告标题
+    content ： 公告内容
+    user_id : 发布者ID
+
+3、返回（JSON字符串）
+
+    无
+
+4、示例
+
+    http://120.77.170.124:8080/busis/admin/announce/add.do?title=test&content=test&user_id=2
+
  
+##### 十四、删除公告
+
+1、接口URL
+
+    http://120.77.170.124:8080/busis/admin/announce/delete.do
+
+2、参数说明
+
+    announcement_id : 公告ID 
+
+3、返回（JSON字符串）
+
+    无
+
+4、示例
+
+    http://120.77.170.124:8080/busis/admin/announce/delete.do?announcement_id=1
+
 
 
