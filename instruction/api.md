@@ -153,7 +153,7 @@
 2、参数说明
 
     user_id(int)：用户ID(必填)
-    head_portrail(MultipartFile):用户新头像图片文件（必填）
+    file(MultipartFile):用户新头像图片文件（必填）
 
 3、返回（JSON字符串）
 

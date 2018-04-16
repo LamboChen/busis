@@ -486,12 +486,17 @@ public class UserController {
         userApiVo.setMessage("说明：");
         userApiVo.setUser(null);
 
-        //将图片存储在服务器文件夹中，并返回文件路径
-        String head_portrailResult = UploadHead_portrailUtil.uploadHead_portrail(file,request);
+        if (file == null){
+            userApiVo.setCode(0);
+            userApiVo.setMessage("未接收到图片！");
+        }else {
 
-        //封装数据
-        user.setUser_id(user_id);
-        user.setHead_portrail(head_portrailResult.toString().trim());
+            //将图片存储在服务器文件夹中，并返回文件路径
+            String head_portrailResult = UploadHead_portrailUtil.uploadHead_portrail(file,request);
+
+            //封装数据
+            user.setUser_id(user_id);
+            user.setHead_portrail(head_portrailResult.toString().trim());
 
 //        System.out.println("-------------------------------");
 //        System.out.println(head_portrailResult.toString().trim());
@@ -499,8 +504,10 @@ public class UserController {
 //        System.out.println(user.getHead_portrail());
 //        System.out.println("-------------------------------");
 
-        //进行数据库更新
-        userApiVo = userService.updateHead_portrailFile(user.getUser_id(),user.getHead_portrail());
+            //进行数据库更新
+            userApiVo = userService.updateHead_portrailFile(user.getUser_id(),user.getHead_portrail());
+
+        }
 
         String resultJson = "";
 
