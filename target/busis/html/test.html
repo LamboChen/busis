@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+</head>
+<body>
+	<br>
+	<h2>发送短信验证码：</h2>
+	<form method="post" action="http://120.77.170.124:8080/busis/user/sms.do">
+		telphone:<input type="text" name="telphone" id="telphone"/><br>
+		<input type="submit" value="submit"/>
+	</form>
+	<hr>
+	<h2>注册用户：</h2>
+	<form method="post" action="http://120.77.170.124:8080/busis/user/register.do">
+		姓名：<input type="text" name="username" id="username"/><br>
+		密码：<input type="text" name="password" id="password"/><br>
+		电话号码：<input type="text" name="telphone" id="telphone"/><br>
+		短信验证码：<input type="text" name="code" id="code"/><br>
+		<input type="submit" value="submit"/>
+	</form>
+
+	<hr/>
+	<h2>用户上传头像：</h2>
+	<form method="post" action="http://120.77.170.124:8080/busis/user/modify/head_portrail/file.do" enctype="multipart/form-data">
+		user_id：<input type="text" name="user_id" id="user_id"/><br/>
+		photo: <input type="file" name="file" id="file"/><br/>
+		<input type="submit" value="submit"/>
+	</form>	
+
+</body>
+</html>
