@@ -9,26 +9,26 @@
 
 #### 运行流程线
 
-1、客户端发起请求
-2、Spring MVC的DispatcherServlet进行拦截
-3、DispatcherServlet查询HandlerMapping
-4、DispatcherServlet将请求进行相应的处理并交付给Handler（Handler即Controller）
-5、Handler按照请求URL进行相应的拦截处理，转入相应的Controller方法
-6、Controller进行数据校验并做少量业务处理
-7、Controller调用Service进行处理
-8、Service进行业务逻辑的处理
-9、Service调用Dao进行数据库的CRUD操作
-10、数据库进行CRUD并返回结果
-11、Dao返回数据库处理结果
-12、Service对Dao返回数据进行业务封装处理
-13、Service将结果返回Controller
-14、Controller将Service结果进行包装处理
-15、Controller将结果返回
-16、DispatcherServlet将Handler返回的ModelAndView交由HandlerAdapter
-17、HandlerAdapter进行处理Handler并将结果返回DispatcherServlet
-18、DispatcherServlet将HandlerAdapter返回结果交由ViewResolver
-19、ViewResolver生成视图并返回DispatcherServlet
-20、DispatcherServlet将结果通过response对象返回客户端
+- 1、客户端发起请求
+- 2、Spring MVC的DispatcherServlet进行拦截
+- 3、DispatcherServlet查询HandlerMapping
+- 4、DispatcherServlet将请求进行相应的处理并交付给Handler（Handler即Controller）
+- 5、Handler按照请求URL进行相应的拦截处理，转入相应的Controller方法
+- 6、Controller进行数据校验并做少量业务处理
+- 7、Controller调用Service进行处理
+- 8、Service进行业务逻辑的处理
+- 9、Service调用Dao进行数据库的CRUD操作
+- 10、数据库进行CRUD并返回结果
+- 11、Dao返回数据库处理结果
+- 12、Service对Dao返回数据进行业务封装处理
+- 13、Service将结果返回Controller
+- 14、Controller将Service结果进行包装处理
+- 15、Controller将结果返回
+- 16、DispatcherServlet将Handler返回的ModelAndView交由HandlerAdapter
+- 17、HandlerAdapter进行处理Handler并将结果返回DispatcherServlet
+- 18、DispatcherServlet将HandlerAdapter返回结果交由ViewResolver
+- 19、ViewResolver生成视图并返回DispatcherServlet
+- 20、DispatcherServlet将结果通过response对象返回客户端
 
 
 #### 数据库相关
