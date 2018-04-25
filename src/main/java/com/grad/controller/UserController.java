@@ -137,7 +137,10 @@ public class UserController {
     @ResponseBody
     public String registerUser(UserBaseInformationDto userBaseInformationDto,
                                HttpServletRequest request,HttpServletResponse response) throws Exception {
-        response.setHeader("Access-Control-Allow-Origin","*");
+//        response.setHeader("Access-Control-Allow-Origin","*");
+
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Credentials", "true");
 
         HttpSession session = request.getSession();
         User tempUser = new User();
@@ -587,7 +590,10 @@ public class UserController {
             produces = "text/json;charset=UTF-8")
     @ResponseBody
     public String sendSmsCode(String telphone, HttpServletRequest request, HttpServletResponse response) throws Exception{
-        response.setHeader("Access-Control-Allow-Origin","*");
+//        response.setHeader("Access-Control-Allow-Origin","*");
+
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Credentials", "true");
 
         //获取session对象
         HttpSession session = request.getSession();
@@ -663,7 +669,10 @@ public class UserController {
     public String recoverPassword(RecoverPasswordDto recoverPasswordDto, HttpServletRequest request,
                                   HttpServletResponse response) throws Exception{
 
-        response.setHeader("Access-Control-Allow-Origin","*");
+//        response.setHeader("Access-Control-Allow-Origin","*");
+
+        response.setHeader("Access-Control-Allow-Origin",request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Credentials", "true");
 
         //声明返回
         int resultCode = 1;
