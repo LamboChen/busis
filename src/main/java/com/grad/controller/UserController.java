@@ -133,7 +133,7 @@ public class UserController {
      *          （注：若注册成功，返回值均为数据库中查询当前注册用户所得。若注册失败，user_id为-1，其他值为原值）
      */
     @RequestMapping(value = "/register",method = {RequestMethod.POST,RequestMethod.GET},
-            produces = "text/json;charset=UTF-8")
+            produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String registerUser(UserBaseInformationDto userBaseInformationDto,
                                HttpServletRequest request,HttpServletResponse response) throws Exception {
@@ -587,7 +587,7 @@ public class UserController {
      * @throws Exception
      */
     @RequestMapping(value = "/sms",method = {RequestMethod.POST,RequestMethod.GET},
-            produces = "text/json;charset=UTF-8")
+            produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String sendSmsCode(String telphone, HttpServletRequest request, HttpServletResponse response) throws Exception{
 //        response.setHeader("Access-Control-Allow-Origin","*");
@@ -664,7 +664,7 @@ public class UserController {
      * @throws Exception
      */
     @RequestMapping(value = "/recover",method = {RequestMethod.POST,RequestMethod.GET},
-            produces = "text/json;charset=UTF-8")
+            produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String recoverPassword(RecoverPasswordDto recoverPasswordDto, HttpServletRequest request,
                                   HttpServletResponse response) throws Exception{
